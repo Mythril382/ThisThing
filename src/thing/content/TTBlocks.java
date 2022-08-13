@@ -1,4 +1,4 @@
-package thing;
+package thing.content;
 
 import mindustry.content.*;
 import mindustry.type.*;
