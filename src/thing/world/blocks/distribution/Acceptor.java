@@ -1,4 +1,4 @@
-package thing.world.blocks.distribution.*;
+package thing.world.blocks.distribution;
 
 import mindustry.entities.*;
 import mindustry.gen.*;
