@@ -1,23 +1,26 @@
 #the mod name as displayed in-game
-displayName: "Java Mod Template"
+displayName: "This Thing"
 
 #the internal name of your mod
-name: "example-java-mod"
+name: "this-thing"
 
 #your name
-author: "You"
+author: "Mythril"
 
 #the fully qualified main class of the mod
-main: "example.ExampleJavaMod"
+main: "thing.ThisThing"
 
 #the mod description as seen in the mod dialog
-description: "A Mindustry Java mod template."
+description: "Is a thing."
 
 #the mod version
-version: 1.0
+version: 1.0.0
 
 #the minimum game build required to run this mod
-minGameVersion: 129
+minGameVersion: 137
 
 #this is a java mod
 java: true
+
+#the repository of the mod
+repo: "Mythril382/ThisThing"
