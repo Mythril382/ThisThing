@@ -1,5 +1,6 @@
 package thing.world.blocks.distribution;
 
+import mindustry.content.*;
 import mindustry.entities.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -45,6 +46,7 @@ public class Transferrer extends Block{
             if(items.any()){
                 Building acceptor = Units.closestBuilding(team, x, y, range, b -> b instanceof AcceptorBuild && b.acceptItem(this, items.first()));
                 if(acceptor != null){
+                    Fx.itemTransfer.at(x, y, 1f, items.first().color, acceptor);
                     acceptor.handleItem(this, items.first());
                     items.remove(items.first(), 1);
                 }
