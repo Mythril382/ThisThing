@@ -51,7 +51,7 @@ public class Transferrer extends Block{
         @Override
         public void updateTile(){
             if(items.any()){
-                Building acceptor = Units.closestBuilding(team, x, y, range, b -> b instanceof AcceptorBuild && b.acceptItem(this, items.first()));
+                Building acceptor = Units.closestBuilding(team, x, y, range, b -> b instanceof AcceptorBuild && b.items.get(items.first()) < b.getMaximumAccepted(items.first()));
                 if(acceptor != null){
                     Fx.itemTransfer.at(x, y, 1f, items.first().color, acceptor);
                     acceptor.handleItem(this, items.first());
@@ -61,9 +61,15 @@ public class Transferrer extends Block{
         }
         
         @Override
+        public boolean acceptItem(Building source, Item item){
+            return items.get(item) < getMaximumAccepted(item);
+        }
+        
+        @Override
         public void drawSelect(){
             Drawf.dashCircle(x, y, range, Pal.accent);
-            Building acceptor = Units.closestBuilding(team, x, y, range, b -> b instanceof AcceptorBuild && ((items.any() && b.acceptItem(this, items.first())) || b.items.total() < (b.block.itemCapacity * content.items().select(i -> !i.hidden && !state.rules.hiddenBuildItems.contains(i)).size)));
+            if(!items.any()) return;
+            Building acceptor = Units.closestBuilding(team, x, y, range, b -> b instanceof AcceptorBuild && b.items.get(items.first()) < b.getMaximumAccepted(items.first()));
             if(acceptor != null) Drawf.square(acceptor.x, acceptor.y, acceptor.block.size * tilesize / 2f + 2f, Pal.place);
         }
     }
