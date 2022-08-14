@@ -35,6 +35,7 @@ public class Transferrer extends Block{
         super.setStats();
         
         stats.add(Stat.range, range / tilesize, StatUnit.blocks);
+        stats.add(Stat.itemsMoved, 60f / transferTime, StatUnit.itemsSecond);
     }
     
     @Override
