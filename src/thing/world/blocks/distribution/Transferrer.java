@@ -27,6 +27,13 @@ public class Transferrer extends Block{
     }
     
     @Override
+    public void setStats(){
+        super.setStats();
+        
+        stats.add(Stat.range, range / tilesize, StatUnit.blocks);
+    }
+    
+    @Override
     public boolean outputsItems(){
         return false;
     }
