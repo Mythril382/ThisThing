@@ -10,7 +10,7 @@ import static mindustry.type.ItemStack.*;
 
 public class TTBlocks{
     public static Block
-    acceptor, transferrer;
+    acceptor, transferrer, burstTransferrer;
     
     public static void load(){
         acceptor = new Acceptor("acceptor"){{
@@ -25,6 +25,14 @@ public class TTBlocks{
             itemCapacity = 15;
             range = 48f;
             transferTime = 10f;
+        }};
+        
+        burstTransferrer = new Transferrer("burst-transferrer"){{
+            requirements(Category.distribution, with(Items.titanium, 8, Items.copper, 20, Items.lead, 16));
+            size = 1;
+            itemCapacity = 20;
+            range = 96f;
+            transferTime = 3.5f;
         }};
     }
 }
