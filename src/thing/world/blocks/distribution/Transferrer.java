@@ -5,6 +5,7 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
+import thing.world.blocks.distribution.Acceptor.*;
 
 import static mindustry.Vars.*;
 
