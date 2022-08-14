@@ -63,7 +63,7 @@ public class Transferrer extends Block{
         @Override
         public void drawSelect(){
             Drawf.dashCircle(x, y, range, Pal.accent);
-            Building acceptor = Units.closestBuilding(team, x, y, range, b -> b instanceof AcceptorBuild && b.acceptItem(this, items.first()));
+            Building acceptor = Units.closestBuilding(team, x, y, range, b -> b instanceof AcceptorBuild);
             if(acceptor != null) Drawf.square(acceptor.x, acceptor.y, acceptor.block.size * tilesize / 2f + 2f, Pal.place);
         }
     }
