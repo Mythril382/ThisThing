@@ -4,6 +4,7 @@ import mindustry.content.*;
 import mindustry.entities.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
+import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
 import thing.world.blocks.distribution.Acceptor.*;
