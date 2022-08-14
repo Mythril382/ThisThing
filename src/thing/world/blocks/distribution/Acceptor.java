@@ -2,6 +2,7 @@ package thing.world.blocks.distribution;
 
 import mindustry.entities.*;
 import mindustry.gen.*;
+import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
 
