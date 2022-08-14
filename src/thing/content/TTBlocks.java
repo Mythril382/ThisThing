@@ -24,7 +24,7 @@ public class TTBlocks{
             size = 1;
             itemCapacity = 15;
             range = 48f;
-            transferTime = 12.5f;
+            transferTime = 10f;
         }};
     }
 }
