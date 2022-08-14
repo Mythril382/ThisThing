@@ -16,7 +16,7 @@ public class Transferrer extends Block{
     /** Transfer range. */
     public float range = 60f;
     /** Transfer cooldown. */
-    public float transferTime = 30f;
+    public float transferTime = 1f;
     
     public Transferrer(String name){
         super(name);
