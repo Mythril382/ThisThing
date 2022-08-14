@@ -23,7 +23,8 @@ public class TTBlocks{
             requirements(Category.distribution, with(Items.copper, 15, Items.lead, 6));
             size = 1;
             itemCapacity = 15;
-            range = 48;
+            range = 48f;
+            transferTime = 12.5f;
         }};
     }
 }
