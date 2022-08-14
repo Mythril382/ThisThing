@@ -28,5 +28,10 @@ public class Acceptor extends Block{
                 dump();
             }
         }
+        
+        @Override
+        public boolean acceptItem(Building source, Item item){
+            items.get(item) < getMaximumAccepted(item);
+        }
     }
 }
