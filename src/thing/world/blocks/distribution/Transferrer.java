@@ -12,8 +12,11 @@ import thing.world.blocks.distribution.Acceptor.*;
 import static mindustry.Vars.*;
 
 public class Transferrer extends Block{
+    public final int timerTransfer = timers++;
     /** Transfer range. */
     public float range = 60f;
+    /** Transfer cooldown. */
+    public float transferTime = 30f;
     
     public Transferrer(String name){
         super(name);
@@ -51,7 +54,7 @@ public class Transferrer extends Block{
     public class TransferrerBuild extends Building{
         @Override
         public void updateTile(){
-            if(items.any()){
+            if(items.any() && timer(timerTransfer, transferTime)){
                 Building acceptor = Units.closestBuilding(team, x, y, range, b -> b instanceof AcceptorBuild && b.items.get(items.first()) < b.getMaximumAccepted(items.first()));
                 if(acceptor != null){
                     Fx.itemTransfer.at(x, y, 1f, items.first().color, acceptor);
