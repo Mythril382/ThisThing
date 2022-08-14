@@ -24,6 +24,7 @@ public class TTBlocks{
             size = 1;
             itemCapacity = 15;
             range = 48f;
+            clipSize = range;
             transferTime = 10f;
         }};
         
@@ -32,6 +33,7 @@ public class TTBlocks{
             size = 1;
             itemCapacity = 20;
             range = 96f;
+            clipSize = range;
             transferTime = 4.25f;
         }};
     }
