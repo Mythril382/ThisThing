@@ -9,6 +9,7 @@ public class Acceptor extends Block{
     public Acceptor(String name){
         super(name);
         hasItems = true;
+        separateItemCapacity = true;
         underBullets = true;
         update = true;
         solid = false;
@@ -31,7 +32,7 @@ public class Acceptor extends Block{
         
         @Override
         public boolean acceptItem(Building source, Item item){
-            items.get(item) < getMaximumAccepted(item);
+            return items.get(item) < getMaximumAccepted(item);
         }
     }
 }
