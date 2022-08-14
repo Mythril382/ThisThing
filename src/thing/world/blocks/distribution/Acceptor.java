@@ -33,7 +33,7 @@ public class Acceptor extends Block{
         
         @Override
         public boolean acceptItem(Building source, Item item){
-            return items.get(item) < getMaximumAccepted(item);
+            return false;
         }
     }
 }
