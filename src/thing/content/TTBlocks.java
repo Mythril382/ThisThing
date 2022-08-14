@@ -15,12 +15,14 @@ public class TTBlocks{
     public static void load(){
         acceptor = new Acceptor("acceptor"){{
             requirements(Category.distribution, with(Items.copper, 8, Items.lead, 6));
+            health = 50;
             size = 1;
             itemCapacity = 50;
         }};
         
         transferrer = new Transferrer("transferrer"){{
             requirements(Category.distribution, with(Items.copper, 15, Items.lead, 6));
+            health = 60;
             size = 1;
             itemCapacity = 15;
             range = 48f;
@@ -30,6 +32,7 @@ public class TTBlocks{
         
         burstTransferrer = new Transferrer("burst-transferrer"){{
             requirements(Category.distribution, with(Items.titanium, 8, Items.copper, 20, Items.lead, 16));
+            health = 80;
             size = 1;
             itemCapacity = 20;
             range = 96f;
