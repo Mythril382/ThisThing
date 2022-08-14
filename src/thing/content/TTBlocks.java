@@ -16,7 +16,7 @@ public class TTBlocks{
         acceptor = new Acceptor("acceptor"){{
             requirements(Category.distribution, with(Items.copper, 8, Items.lead, 6));
             size = 1;
-            itemCapacity = 30;
+            itemCapacity = 50;
         }};
         
         transferrer = new Transferrer("transferrer"){{
@@ -32,7 +32,7 @@ public class TTBlocks{
             size = 1;
             itemCapacity = 20;
             range = 96f;
-            transferTime = 3.5f;
+            transferTime = 4.25f;
         }};
     }
 }
