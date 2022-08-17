@@ -9,7 +9,7 @@ public class TTLExecutor{
     public static class ShakeI implements LInstruction{
         public int intensity, x, y;
         
-        public ShakeI(int duration, int x, int y){
+        public ShakeI(int intensity, int x, int y){
             this.intensity = intensity;
             this.x = x;
             this.y = y;
