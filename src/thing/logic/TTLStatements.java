@@ -86,7 +86,7 @@ public class TTLStatements{
         }
         
         @Override
-        public void privileged(){
+        public boolean privileged(){
             return true;
         }
         
