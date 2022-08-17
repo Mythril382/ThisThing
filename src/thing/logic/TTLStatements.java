@@ -36,7 +36,7 @@ public class TTLStatements{
         }
     }
     
-    public static void init(){
+    public static void load(){
         ThisThing.registerStatement("shake", strArr -> new ShakeStatement(), () -> new ShakeStatement());
     }
 }
