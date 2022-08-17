@@ -1,8 +1,6 @@
 package thing;
 
-import arc.*;
 import arc.func.*;
-import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.logic.*;
 import mindustry.mod.*;
@@ -10,15 +8,10 @@ import thing.content.*;
 import thing.logic.*;
 
 public class ThisThing extends Mod{
-    public ThisThing(){
-        Events.on(ClientLoadEvent.class, e -> {
-            TTLStatements.load();
-        });
-    }
-    
     @Override
     public void loadContent(){
         TTBlocks.load();
+        TTLStatements.load();
     }
     
     /** Mimics the RegisterStatement annotation.
