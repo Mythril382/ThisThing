@@ -1,6 +1,7 @@
 package thing;
 
 import arc.func.*;
+import mindustry.gen.*;
 import mindustry.logic.*;
 import mindustry.mod.*;
 import thing.content.*;
