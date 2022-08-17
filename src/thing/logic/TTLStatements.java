@@ -11,6 +11,15 @@ public class TTLStatements{
     public static class ShakeStatement extends LStatement{
         public String intensity = "10", x = "0", y = "0";
         
+        public ShakeStatement(){
+        }
+        
+        public ShakeStatement(String intensity, String x, String y){
+            this.intensity = intensity;
+            this.x = x;
+            this.y = y;
+        }
+        
         @Override
         public void build(Table table){
             fields(table, "intensity", intensity, str -> intensity = str);
@@ -34,9 +43,14 @@ public class TTLStatements{
         public LCategory category(){
             return LCategory.world;
         }
+        
+        @Override
+        public void write(StringBuilder builder){
+            builder.append("shake ").append(intensity).append(" ").append(x).append(" ").append(y);
+        }
     }
     
     public static void load(){
-        ThisThing.registerStatement("shake", strArr -> new ShakeStatement(), () -> new ShakeStatement());
+        ThisThing.registerStatement("shake", args -> new ShakeStatement(args[1], args[2], args[3]), ShakeStatement::new);
     }
 }
