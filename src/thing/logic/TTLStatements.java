@@ -1,6 +1,8 @@
 package thing.logic;
 
+import arc.func.*;
 import arc.scene.ui.layout.*;
+import mindustry.gen.*;
 import mindustry.logic.*;
 import mindustry.logic.LExecutor.*;
 import thing.*;
