@@ -5,11 +5,13 @@ import mindustry.gen.*;
 import mindustry.logic.*;
 import mindustry.mod.*;
 import thing.content.*;
+import thing.logic.*;
 
 public class ThisThing extends Mod{
     @Override
     public void loadContent(){
         TTBlocks.load();
+        TTLStatements.load();
     }
     
     /** Mimics the RegisterStatement annotation. Credits to Deltanedas for creating the original function.
