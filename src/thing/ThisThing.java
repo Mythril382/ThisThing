@@ -21,7 +21,7 @@ public class ThisThing extends Mod{
         TTBlocks.load();
     }
     
-    /** Mimics the RegisterStatement annotation. Credits to Deltanedas for creating the original function.
+    /** Mimics the RegisterStatement annotation.
      * @param name The name of the statement to be registered.
      * @param func The Func to be added to the custom parsers list.
      * @param prov The Prov to be added to the all statements list.
