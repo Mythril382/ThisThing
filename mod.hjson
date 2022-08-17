@@ -14,7 +14,7 @@ main: "thing.ThisThing"
 description: "Is a thing."
 
 #the mod version
-version: 1.0.0
+version: 1.0.1
 
 #the minimum game build required to run this mod
 minGameVersion: 137
