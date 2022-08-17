@@ -22,7 +22,7 @@ public class ThisThing extends Mod{
                 f.setAccessible(true);
                 IntMap idToSound = (IntMap)f.get(Sounds.class);
                 for(int i = 0; i < idToSound.size; i++){
-                    // swish can breaks game audio sooooooo
+                    // swish can break game audio sooooooo
                     if(i != Sounds.getSoundId(Sounds.swish)){
                         Sound sound = Sounds.getSound(i);
                         try{
