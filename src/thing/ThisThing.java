@@ -29,17 +29,7 @@ public class ThisThing extends Mod{
                         Field f2 = sound.getClass().getDeclaredField("file");
                         f2.setAccessible(true);
                         Fi file = (Fi)f2.get(sound);
-                        String name = file.nameWithoutExtension()
-                            .replace("1", "one")
-                            .replace("2", "two")
-                            .replace("3", "three")
-                            .replace("4", "four")
-                            .replace("5", "five")
-                            .replace("6", "six")
-                            .replace("7", "seven")
-                            .replace("8", "eight")
-                            .replace("9", "nine")
-                            .replace("0", "zero");
+                        String name = file.nameWithoutExtension();
                         logicVars.put("@sfx" + name, sound);
                     }catch(Throwable ignoreAgain){}
                 }
