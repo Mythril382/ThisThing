@@ -48,7 +48,13 @@ public class TTLStatements{
         
         @Override
         public void write(StringBuilder builder){
-            builder.append("shake ").append(intensity).append(" ").append(x).append(" ").append(y);
+            builder
+                .append("shake ")
+                .append(intensity)
+                .append(" ")
+                .append(x)
+                .append(" ")
+                .append(y);
         }
     }
     
