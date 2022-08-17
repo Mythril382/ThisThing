@@ -35,5 +35,8 @@ public class TTLStatements{
             return LCategory.world;
         }
     }
-    ThisThing.registerStatement("shake", strArr -> new ShakeStatement(), () -> new ShakeStatement());
+    
+    public static void init(){
+        ThisThing.registerStatement("shake", strArr -> new ShakeStatement(), () -> new ShakeStatement());
+    }
 }
