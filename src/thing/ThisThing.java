@@ -23,15 +23,16 @@ public class ThisThing extends Mod{
                 IntMap idToSound = (IntMap)f.get(Sounds.class);
                 for(int i = 0; i < idToSound.size; i++){
                     // swish can breaks game audio sooooooo
-                    if(i == Sounds.getSoundId(Sounds.swish)) return;
-                    Sound sound = Sounds.getSound(i);
-                    try{
-                        Field f2 = sound.getClass().getDeclaredField("file");
-                        f2.setAccessible(true);
-                        Fi file = (Fi)f2.get(sound);
-                        String name = file.nameWithoutExtension();
-                        logicVars.put("@sfx" + name, sound);
-                    }catch(Throwable ignoreAgain){}
+                    if(i != Sounds.getSoundId(Sounds.swish)){
+                        Sound sound = Sounds.getSound(i);
+                        try{
+                            Field f2 = sound.getClass().getDeclaredField("file");
+                            f2.setAccessible(true);
+                            Fi file = (Fi)f2.get(sound);
+                            String name = file.nameWithoutExtension();
+                            logicVars.put("@sfx" + name, sound);
+                        }catch(Throwable ignoreAgain){}
+                    }
                 }
             }catch(Throwable ignore){}
         });
