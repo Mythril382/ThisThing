@@ -69,6 +69,7 @@ public class TTLExecutor{
         @Override
         public void run(LExecutor exec){
             if(exec.obj(LExecutor.varUnit) instanceof Unit unit){
+                if(unit.isPlayer()) return;
                 unit.controller(new CommandAI());
                 // check again to make sure if unit is still not commandable
                 if(unit.isCommandable()){
