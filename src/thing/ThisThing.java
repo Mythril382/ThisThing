@@ -38,12 +38,13 @@ public class ThisThing extends Mod{
             
             Time.runTask(6f, () -> {
                 DatabaseDialog db = ui.database;
+                Table all = (Table)Reflect.get(db, "all");
                 db.resizedShown(() -> {
-                    db.cont.add("@content.lst.name").growX().left().color(Pal.accent);
-                    db.cont.row();
-                    db.cont.image().growX().pad(5).padLeft(0).padRight(0).height(3).color(Pal.accent);
-                    db.cont.row();
-                    db.cont.table(list -> {
+                    all.add("@content.lst.name").growX().left().color(Pal.accent);
+                    all.row();
+                    all.image().growX().pad(5).padLeft(0).padRight(0).height(3).color(Pal.accent);
+                    all.row();
+                    all.table(list -> {
                         list.left();
                         int cols = (int)Mathf.clamp((graphics.getWidth() - Scl.scl(30)) / Scl.scl(32 + 12), 1, 22);
                         int count = 0;
@@ -60,9 +61,12 @@ public class ThisThing extends Mod{
                                     t.add(lst.name());
                                 }));
                             }
+                            if((++count) % cols == 0){
+                                list.row();
+                            }
                         }
                     });
-                    db.cont.row();
+                    all.row();
                 });
             });
         });
