@@ -65,7 +65,7 @@ public class ThisThing extends Mod{
         boolean row = buttons.getChildren().count(b -> b instanceof MobileButton) % (graphics.isPortrait() ? 2 : 4) == 0;
         if(row) buttons.row();
         
-        buttons.add(new MobileButton(new TextureRegionDrawable(atlas.find("this-thing-button")), bundle.get("this-thing-button.name"), () -> {}));
+        buttons.add(new MobileButton(new TextureRegionDrawable(atlas.find("this-thing-button")), "@this-thing-button", () -> {})).name("@this-thing-button");
     }
     
     public static void desktopButton(){
