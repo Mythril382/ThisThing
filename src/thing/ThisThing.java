@@ -44,7 +44,7 @@ public class ThisThing extends Mod{
             Time.runTask(6f, () -> {
                 if(mobile) mobileButton();
                 else desktopButton();
-                Events.on(ResizeEvent.class, e -> {
+                Events.on(ResizeEvent.class, () -> {
                     if(mobile) mobileButton();
                     else desktopButton();
                 });
