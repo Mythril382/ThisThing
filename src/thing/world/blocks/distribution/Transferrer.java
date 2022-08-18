@@ -20,6 +20,7 @@ public class Transferrer extends Block{
     
     public Transferrer(String name){
         super(name);
+
         acceptsItems = true;
         hasItems = true;
         separateItemCapacity = true;
