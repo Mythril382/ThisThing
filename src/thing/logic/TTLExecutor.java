@@ -55,7 +55,7 @@ public class TTLExecutor{
         }
     }
     
-    public static class UnitPathfindI extends LInstruction{
+    public static class UnitPathfindI implements LInstruction{
         public int x, y;
         
         public UnitPathfindI(){
