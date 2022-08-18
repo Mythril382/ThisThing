@@ -3,15 +3,20 @@ package thing;
 import arc.*;
 import arc.audio.*;
 import arc.files.*;
+import arc.scene.style.*;
+import arc.scene.ui.layout.*;
 import arc.struct.*;
+import arc.util.*;
 import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.mod.*;
+import mindustry.ui.*;
 import thing.content.*;
 import thing.logic.*;
 
 import java.lang.reflect.*;
 
+import static arc.Core.*;
 import static mindustry.Vars.*;
 
 public class ThisThing extends Mod{
@@ -35,6 +40,15 @@ public class ThisThing extends Mod{
                     }
                 }
             }catch(Throwable ignore){}
+            
+            Time.runTask(6f, () -> {
+                if(mobile) mobileButton();
+                else desktopButton();
+                Events.on(ResizeEvent.class, e -> {
+                    if(mobile) mobileButton();
+                    else desktopButton();
+                });
+            });
         });
     }
     
@@ -42,5 +56,18 @@ public class ThisThing extends Mod{
     public void loadContent(){
         TTBlocks.load();
         TTLStatements.load();
+    }
+    
+    public static void mobileButton(){
+        Table buttons = ui.menuGroup.<Table>find("buttons");
+        
+        // Credits to Liplum (Creator of CyberIO) for this piece of code.
+        boolean row = buttons.getChildren().count(b -> b instanceof MobileButton) % (graphics.isPortrait() ? 2 : 4) == 0;
+        if(row) buttons.row();
+        
+        buttons.add(new MobileButton(new TextureRegionDrawable(atlas.find("this-thing-button")), bundle.get("this-thing-button.name"), () -> {}));
+    }
+    
+    public static void desktopButton(){
     }
 }
