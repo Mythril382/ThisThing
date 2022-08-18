@@ -56,7 +56,10 @@ public class ThisThing extends Mod{
                                 image.clicked(() -> {
                                     ui.showInfo("[accent]Name[]: " + lst.name());
                                 });
-                                image.addListener(new Tooltip(t -> t.setBackground(Tex.button).add(lst.name())));
+                                image.addListener(new Tooltip(t -> {
+                                    t.setBackground(Tex.button);
+                                    t.add(lst.name());
+                                });
                             }
                         }
                     });
