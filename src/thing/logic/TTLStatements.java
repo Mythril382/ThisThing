@@ -137,7 +137,7 @@ public class TTLStatements{
         
         @Override
         public LInstruction build(LAssembler b){
-            new UnitPathfindI(b.var(x), b.var(y));
+            return new UnitPathfindI(b.var(x), b.var(y));
         }
         
         @Override
