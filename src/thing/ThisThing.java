@@ -59,7 +59,7 @@ public class ThisThing extends Mod{
                                 image.addListener(new Tooltip(t -> {
                                     t.setBackground(Tex.button);
                                     t.add(lst.name());
-                                });
+                                }));
                             }
                         }
                     });
