@@ -35,40 +35,6 @@ public class ThisThing extends Mod{
                     logicVars.put("@sfx" + name, sound);
                 }
             }
-            
-            Time.runTask(6f, () -> {
-                DatabaseDialog db = ui.database;
-                Table all = (Table)Reflect.get(db, "all");
-                db.resizedShown(() -> {
-                    all.add("@content.lst.name").growX().left().color(Pal.accent);
-                    all.row();
-                    all.image().growX().pad(5).padLeft(0).padRight(0).height(3).color(Pal.accent);
-                    all.row();
-                    all.table(list -> {
-                        list.left();
-                        int cols = (int)Mathf.clamp((graphics.getWidth() - Scl.scl(30)) / Scl.scl(32 + 12), 1, 22);
-                        int count = 0;
-                        for(int i = 0; i < LogicIO.allStatements.size; i++){
-                            LStatement lst = LogicIO.allStatements.get(i).get();
-                            if(!(lst instanceof InvalidStatement)){
-                                Image image = new Image(atlas.find("this-thing-lst-icon"));
-                                list.add(image).size(8 * 4).pad(3);
-                                image.clicked(() -> {
-                                    ui.showInfo("[accent]Name[]: " + lst.name());
-                                });
-                                image.addListener(new Tooltip(t -> {
-                                    t.setBackground(Tex.button);
-                                    t.add(lst.name());
-                                }));
-                            }
-                            if((++count) % cols == 0){
-                                list.row();
-                            }
-                        }
-                    });
-                    all.row();
-                });
-            });
         });
     }
     
