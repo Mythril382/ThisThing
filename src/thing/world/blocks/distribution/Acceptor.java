@@ -9,6 +9,7 @@ import mindustry.world.meta.*;
 public class Acceptor extends Block{
     public Acceptor(String name){
         super(name);
+
         hasItems = true;
         separateItemCapacity = true;
         underBullets = true;
