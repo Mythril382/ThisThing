@@ -53,7 +53,7 @@ public class ThisThing extends Mod{
                                 Image image = new Image(atlas.find("this-thing-lst-icon"));
                                 list.add(image).size(8 * 4).pad(3);
                                 image.clicked(() -> {
-                                    ui.showInfo("[accent]Name[]: " + lst.name() + "\n[accent]Category[]: " + "[#" lst.category().color "]" + lst.category().localized() + "[]");
+                                    ui.showInfo("[accent]Name[]: " + lst.name());
                                 });
                                 image.addListener(new Tooltip(t -> t.setBackground(Tex.button).add("[#" + lst.category().color + "]" + lst.name())));
                             }
