@@ -11,6 +11,7 @@ import arc.util.*;
 import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
+import mindustry.logic.*;
 import mindustry.logic.LStatements.*;
 import mindustry.mod.*;
 import mindustry.ui.*;
