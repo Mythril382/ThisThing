@@ -12,7 +12,7 @@ import static mindustry.Vars.*;
 
 public class TTLogic{
     public static final LCategory
-    categoryMisc = new LCategory("misc", Pal.heal.cpy().mul(0.8f), Icon.iconSmall);
+    categoryMisc = new LCategory("misc", Pal.heal.cpy().mul(0.8f), Icon.infoSmall);
     
     public static void load(){
         TTLStatements.load();
