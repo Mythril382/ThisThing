@@ -173,7 +173,7 @@ public class TTLStatements{
         
         @Override
         public LInstruction build(LAssembler b){
-            return null;
+            return new CommentI();
         }
         
         @Override
