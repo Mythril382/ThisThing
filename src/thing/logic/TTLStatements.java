@@ -155,45 +155,10 @@ public class TTLStatements{
         }
     }
     
-    // table builder code in this class is stolen from LStatements.java
-    public static class Comment extends LStatement{
-        public String comment = "burger";
-        
-        public Comment(){
-        }
-        
-        public Comment(String comment){
-            this.comment = comment.replace("__-", " ").replace("!!(", "\n");
-        }
-        
-        @Override
-        public void build(Table table){
-            table.area(comment, Styles.nodeArea, input -> comment = input).growX().height(90f).padLeft(2).padRight(6).color(table.color);
-        }
-        
-        @Override
-        public LInstruction build(LAssembler b){
-            return null;
-        }
-        
-        @Override
-        public LCategory category(){
-            return TTLogic.categoryMisc;
-        }
-        
-        @Override
-        public void write(StringBuilder builder){
-            builder
-                .append("-- ")
-                .append(comment.replace(" ", "__-").replace("\n", "!!("));
-        }
-    }
-    
     public static void load(){
         registerStatement("shake", args -> new ShakeStatement(args[1], args[2], args[3]), ShakeStatement::new);
         registerStatement("playsound", args -> new PlaySoundStatement(args[1], args[2], args[3], args[4], args[5], args[6]), PlaySoundStatement::new);
         registerStatement("unitpathfind", args -> new UnitPathfindStatement(args[1], args[2]), UnitPathfindStatement::new);
-        registerStatement("--", args -> new Comment(args[1]), Comment::new);
     }
     
     /** Mimics the RegisterStatement annotation.
