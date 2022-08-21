@@ -155,10 +155,45 @@ public class TTLStatements{
         }
     }
     
+    public static class NewListStatement extends LStatement{
+        public String result = "result";
+        
+        public NewListStatement(){
+        }
+        
+        public NewListStatement(String result){
+            this.result = result;
+        }
+        
+        @Override
+        public void build(Table table){
+            fields(table, result, str -> result = str);
+            table.add(" = new List");
+        }
+        
+        @Override
+        public LInstruction build(LAssembler b){
+            return new NewListI(b.var(result));
+        }
+        
+        @Override
+        public LCategory category(){
+            return LCategory.operation;
+        }
+        
+        @Override
+        public void write(StringBuilder builder){
+            builder
+                .append("newlist ")
+                .append(result);
+        }
+    }
+    
     public static void load(){
         registerStatement("shake", args -> new ShakeStatement(args[1], args[2], args[3]), ShakeStatement::new);
         registerStatement("playsound", args -> new PlaySoundStatement(args[1], args[2], args[3], args[4], args[5], args[6]), PlaySoundStatement::new);
         registerStatement("unitpathfind", args -> new UnitPathfindStatement(args[1], args[2]), UnitPathfindStatement::new);
+        registerStatement("newlist", args -> new NewListStatement(args[1]), NewListStatement::new);
     }
     
     /** Mimics the RegisterStatement annotation.

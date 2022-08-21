@@ -2,6 +2,7 @@ package thing.logic;
 
 import arc.audio.*;
 import arc.math.geom.*;
+import arc.struct.*;
 import mindustry.ai.types.*;
 import mindustry.core.*;
 import mindustry.entities.*;
@@ -76,6 +77,25 @@ public class TTLExecutor{
                     unit.command().commandPosition(new Vec2(World.unconv(exec.numf(x)), World.unconv(exec.numf(y))));
                 }
             }
+        }
+    }
+    
+    public static class NewListI implements LInstruction{
+        public int result;
+        
+        public NewListI(){
+        }
+        
+        public NewListI(int result){
+            this.result = result;
+        }
+        
+        @Override
+        public void run(LExecutor exec){
+            Var r = exec.var(result);
+            ObjectSet<Object> list = new ObjectSet<>();
+            r.objval = list;
+            r.isobj = true;
         }
     }
 }
