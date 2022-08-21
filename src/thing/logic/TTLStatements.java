@@ -155,7 +155,7 @@ public class TTLStatements{
         }
     }
     
-    // 95% of the code in this class is stolen from LStatements.java
+    // table builder code in this class is stolen from LStatements.java
     public static class Comment extends LStatement{
         public String comment = "burger";
         
@@ -193,7 +193,7 @@ public class TTLStatements{
         registerStatement("shake", args -> new ShakeStatement(args[1], args[2], args[3]), ShakeStatement::new);
         registerStatement("playsound", args -> new PlaySoundStatement(args[1], args[2], args[3], args[4], args[5], args[6]), PlaySoundStatement::new);
         registerStatement("unitpathfind", args -> new UnitPathfindStatement(args[1], args[2]), UnitPathfindStatement::new);
-        registerStatement("-- ", args -> new Comment(args[1]), Comment::new);
+        registerStatement("--", args -> new Comment(args[1]), Comment::new);
     }
     
     /** Mimics the RegisterStatement annotation.
