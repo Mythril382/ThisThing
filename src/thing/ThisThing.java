@@ -8,6 +8,6 @@ public class ThisThing extends Mod{
     @Override
     public void loadContent(){
         TTBlocks.load();
-        // TTLogic.load();
+        TTLogic.load();
     }
 }
