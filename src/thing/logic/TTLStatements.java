@@ -155,7 +155,7 @@ public class TTLStatements{
         }
     }
     
-    // 95% of the code in this class is stolen from LStatements
+    // 95% of the code in this class is stolen from LStatements.java
     public static class Comment extends LStatement{
         public String comment = "burger";
         
@@ -173,7 +173,7 @@ public class TTLStatements{
         
         @Override
         public LInstruction build(LAssembler b){
-            return new LInstruction();
+            return null;
         }
         
         @Override
