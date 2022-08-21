@@ -185,7 +185,7 @@ public class TTLStatements{
         public void write(StringBuilder builder){
             builder
                 .append("-- ")
-                .append(comment.replace(" ", "__-").replace("\n", "!!(");
+                .append(comment.replace(" ", "__-").replace("\n", "!!("));
         }
     }
     
