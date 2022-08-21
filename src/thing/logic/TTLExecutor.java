@@ -78,4 +78,11 @@ public class TTLExecutor{
             }
         }
     }
+    
+    // prevents comments from becoming invalid instructions
+    public static class CommentI implements LInstruction{
+        @Override
+        public void run(LExecutor exec){
+        }
+    }
 }
