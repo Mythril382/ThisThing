@@ -78,10 +78,4 @@ public class TTLExecutor{
             }
         }
     }
-    
-    public static class CommentI implements LInstruction{
-        @Override
-        public void run(LExecutor exec){
-        }
-    }
 }
