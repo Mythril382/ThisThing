@@ -163,7 +163,7 @@ public class TTLStatements{
         }
         
         public Comment(String comment){
-            this.comment = comment;
+            this.comment = comment.replace("THISISVERYMUCHASPACE", " ");
         }
         
         @Override
@@ -185,7 +185,7 @@ public class TTLStatements{
         public void write(StringBuilder builder){
             builder
                 .append("-- ")
-                .append(comment);
+                .append(comment.replace(" ", "THISISVERYMUCHASPACE"));
         }
     }
     
