@@ -10,8 +10,11 @@ author: "Mythril"
 #the fully qualified main class of the mod
 main: "thing.ThisThing"
 
-#the mod description as seen in the mod dialog
+#the mod subtitle as seen in the mod dialog
 description: "Is a thing."
+
+#the mod description as seen in the mod dialog
+description: "Adds a few blocks and logic instructions."
 
 #the mod version
 version: 1.2.0
