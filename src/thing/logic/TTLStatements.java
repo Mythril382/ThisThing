@@ -154,10 +154,71 @@ public class TTLStatements{
         }
     }
     
+    public static class RandStatement extends LStatement{
+        public LRand method = LRand.nextDouble;
+        public String p1 = "a", p2 = "b", result = "result";
+        
+        public RandStatement(){
+        }
+        
+        public RandStatement(String method, String p1, String p2, String result){
+            try{
+                this.method = LRand.valueOf(method);
+            }catch(Throwable ignored){}
+            this.p1 = p1;
+            this.p2 = p2;
+            this.result = result;
+        }
+        
+        @Override
+        public void build(Table table){
+            rebuild(table);
+        }
+        
+        void rebuild(Table table){
+            table.clearChildren();
+            fields(table, result, str -> result = str);
+            table.add(" = ");
+            table.button(b -> {
+                b.label(() -> method.name());
+                b.clicked(() -> showSelect(b, LRand.all, method, o -> {
+                    method = o;
+                    rebuild(table);
+                }, 2, c -> c.size(120f, 40f)));
+            }, Styles.logict, () -> {}).size(120f, 40f).pad(4f).color(table.color);
+            fields(table, p1, str -> p1 = str);
+            if(method.func2 != null) fields(table, p2, str -> p2 = str);
+        }
+        
+        @Override
+        public LInstruction build(LAssembler b){
+            return new RandI(method, b.var(p1), b.var(p2), b.var(result));
+        }
+        
+        @Override
+        public LCategory category(){
+            return LCategory.operation;
+        }
+        
+        @Override
+        public void write(StringBuilder builder){
+            builder
+                .append("rand ")
+                .append(method.name())
+                .append(" ")
+                .append(p1)
+                .append(" ")
+                .append(p2)
+                .append(" ")
+                .append(result);
+        }
+    }
+    
     public static void load(){
         registerStatement("shake", args -> new ShakeStatement(args[1], args[2], args[3]), ShakeStatement::new);
         registerStatement("playsound", args -> new PlaySoundStatement(args[1], args[2], args[3], args[4], args[5], args[6]), PlaySoundStatement::new);
         registerStatement("unitpathfind", args -> new UnitPathfindStatement(args[1], args[2]), UnitPathfindStatement::new);
+        registerStatement("rand", args -> new RandStatement(args[1], args[2], args[3], args[4]), RandStatement::new);
     }
     
     /** Mimics the RegisterStatement annotation.
