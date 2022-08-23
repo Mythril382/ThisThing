@@ -9,7 +9,7 @@ import mindustry.gen.*;
 import mindustry.logic.*;
 import mindustry.logic.LExecutor.*;
 
-public class TTLExecutor{
+public class TTLInstructions{
     public static class ShakeI implements LInstruction{
         public int intensity, x, y;
         
