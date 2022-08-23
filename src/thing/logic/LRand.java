@@ -6,7 +6,6 @@ public enum LRand{
     nextDouble(a -> GlobalVars.rand.nextDouble()),
     nextLong(a -> (double)GlobalVars.rand.nextLong()),
     nextInt(a -> (double)GlobalVars.rand.nextInt()),
-    nextFloat(a -> (double)GlobalVars.rand.nextFloat()),
     random(a -> (double)GlobalVars.rand.random((float)a)),
     random2((a, b) -> (double)GlobalVars.rand.random((float)a, (float)b));
     
