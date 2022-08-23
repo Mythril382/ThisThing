@@ -6,8 +6,7 @@ import mindustry.gen.*;
 import mindustry.logic.*;
 import mindustry.logic.LExecutor.*;
 import mindustry.ui.*;
-
-import static thing.logic.TTLExecutor.*;
+import thing.logic.TTLInstructions.*;
 
 public class TTLStatements{
     public static class ShakeStatement extends LStatement{
