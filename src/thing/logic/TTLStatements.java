@@ -186,6 +186,7 @@ public class TTLStatements{
                     rebuild(table);
                 }, 2, c -> c.size(120f, 40f)));
             }, Styles.logict, () -> {}).size(120f, 40f).pad(4f).color(table.color);
+            row(table);
             fields(table, p1, str -> p1 = str);
             if(method.func2 != null) fields(table, p2, str -> p2 = str);
         }
