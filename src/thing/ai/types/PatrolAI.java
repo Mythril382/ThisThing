@@ -37,7 +37,7 @@ public class PatrolAI extends AIController{
     
     public void chase(){
         chasePathId = controlPath.nextTargetId();
-        boolean move = controlPath.getPathPosition(unit, chasePathId, new Vec2(((Position)target).x, ((Position)target).y), chaseVecOut);
+        boolean move = controlPath.getPathPosition(unit, chasePathId, new Vec2(target.getX(), target.getY()), chaseVecOut);
         if(move) moveTo(chaseVecOut, unit.range() - unit.type.hitSize);
     }
     
