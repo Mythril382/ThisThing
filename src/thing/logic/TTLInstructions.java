@@ -1,11 +1,8 @@
 package thing.logic;
 
 import arc.audio.*;
-import arc.math.geom.*;
-import mindustry.ai.types.*;
 import mindustry.core.*;
 import mindustry.entities.*;
-import mindustry.gen.*;
 import mindustry.logic.*;
 import mindustry.logic.LExecutor.*;
 
@@ -50,30 +47,6 @@ public class TTLInstructions{
                     sfx.at(World.unconv(exec.numf(x)), World.unconv(exec.numf(y)), exec.numf(pitch), exec.numf(volume));
                 }else{
                     sfx.play(exec.numf(volume), exec.numf(pitch), 0f);
-                }
-            }
-        }
-    }
-    
-    public static class UnitPathfindI implements LInstruction{
-        public int x, y;
-        
-        public UnitPathfindI(){
-        }
-        
-        public UnitPathfindI(int x, int y){
-            this.x = x;
-            this.y = y;
-        }
-        
-        @Override
-        public void run(LExecutor exec){
-            if(exec.obj(LExecutor.varUnit) instanceof Unit unit){
-                if(unit.isPlayer()) return;
-                unit.controller(new CommandAI());
-                // check again to make sure if unit is still not commandable
-                if(unit.isCommandable()){
-                    unit.command().commandPosition(new Vec2(World.unconv(exec.numf(x)), World.unconv(exec.numf(y))));
                 }
             }
         }

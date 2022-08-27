@@ -11,9 +11,6 @@ import mindustry.logic.*;
 import static mindustry.Vars.*;
 
 public class TTLogic{
-    public static final LCategory
-    categoryMath = new LCategory("math", Pal.heal.cpy().mul(0.8f), Icon.infoSmall);
-    
     public static void load(){
         TTLStatements.load();
         

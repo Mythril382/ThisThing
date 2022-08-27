@@ -117,43 +117,6 @@ public class TTLStatements{
         }
     }
     
-    public static class UnitPathfindStatement extends LStatement{
-        public String x = "0", y = "0";
-        
-        public UnitPathfindStatement(){
-        }
-        
-        public UnitPathfindStatement(String x, String y){
-            this.x = x;
-            this.y = y;
-        }
-        
-        @Override
-        public void build(Table table){
-            fields(table, "x", x, str -> x = str);
-            fields(table, "y", y, str -> y = str);
-        }
-        
-        @Override
-        public LInstruction build(LAssembler b){
-            return new UnitPathfindI(b.var(x), b.var(y));
-        }
-        
-        @Override
-        public LCategory category(){
-            return LCategory.unit;
-        }
-        
-        @Override
-        public void write(StringBuilder builder){
-            builder
-                .append("unitpathfind ")
-                .append(x)
-                .append(" ")
-                .append(y);
-        }
-    }
-    
     public static class RandStatement extends LStatement{
         public LRand method = LRand.nextDouble;
         public String p1 = "a", p2 = "b", result = "result";
