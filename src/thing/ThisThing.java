@@ -15,10 +15,12 @@ public class ThisThing extends Mod{
         TTBlocks.load();
         TTLogic.load();
         
+        /* broken atm, PatrolAI stays inaccessible
         content.units().each(unit -> {
             Seq<UnitCommand> cmds = Seq.with(unit.commands);
             cmds.add(UCommands.patrolCommand);
             unit.commands = cmds.toArray(UnitCommand.class);
         });
+        */
     }
 }
