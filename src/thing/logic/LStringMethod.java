@@ -1,6 +1,6 @@
 package thing.logic;
 
-public enum LStringMethods{
+public enum LStringMethod{
     charAt,
     concat,
     isEmpty,
@@ -8,5 +8,5 @@ public enum LStringMethods{
     toLowerCase,
     toUpperCase;
     
-    public static final LStringMethods[] all = values();
+    public static final LStringMethod[] all = values();
 }
