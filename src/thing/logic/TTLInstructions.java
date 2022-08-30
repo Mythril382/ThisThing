@@ -75,4 +75,47 @@ public class TTLInstructions{
             }
         }
     }
+    
+    public static class StringMethodI implements LInstruction{
+        public LStringMethod method = LStringMethod.charAt;
+        public int string, p1, result;
+        
+        public StringMethodI(){
+        }
+        
+        public StringMethodI(LStringMethod method, int string, int p1, int result){
+            this.method = method;
+            this.string = string;
+            this.p1 = p1;
+            this.result = result;
+        }
+        
+        @Override
+        public void run(LExecutor exec){
+            if(exec.obj(string) instanceof String str){
+                switch(method){
+                    case charAt -> {
+                        try{
+                            exec.setobj(result, String.valueOf(str.charAt(exec.numi(p1))));
+                        }catch(Throwable ignored){
+                            exec.setobj(result, null);
+                        }
+                    }
+                    case concat -> {
+                        if(exec.obj(p1) instanceof String str2){
+                            exec.setobj(result, str.concat(str2));
+                        }else{
+                            exec.setobj(result, str);
+                        }
+                    }
+                    case isEmpty -> exec.setbool(result, str.isEmpty());
+                    case length -> exec.setnum(result, str.length());
+                    case toLowerCase -> exec.setobj(result, str.toLowerCase());
+                    case toUpperCase -> exec.setobj(result, str.toUpperCase());
+                }
+            }else{
+                exec.setobj(result, null);
+            }
+        }
+    }
 }
