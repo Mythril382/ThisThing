@@ -4,7 +4,6 @@ import arc.struct.*;
 import mindustry.ai.*;
 import mindustry.mod.*;
 import thing.ai.*;
-import thing.content.*;
 import thing.logic.*;
 
 import static mindustry.Vars.*;
@@ -12,7 +11,6 @@ import static mindustry.Vars.*;
 public class ThisThing extends Mod{
     @Override
     public void loadContent(){
-        TTBlocks.load();
         TTLogic.load();
         
         /* broken atm, PatrolAI stays inaccessible
