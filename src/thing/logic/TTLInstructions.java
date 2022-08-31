@@ -101,7 +101,10 @@ public class TTLInstructions{
                             exec.setobj(result, null);
                         }
                     }
-                    case concat -> exec.setobj(result, str.concat(String.valueOf(exec.obj(p1))));
+                    case concat -> {
+                        Var str2 = exec.var(p1);
+                        exec.setobj(result, str.concat(String.valueOf(str2.isobj ? str2.objval : str2.numval));
+                    }
                     case isEmpty -> exec.setbool(result, str.isEmpty());
                     case length -> exec.setnum(result, str.length());
                     case toLowerCase -> exec.setobj(result, str.toLowerCase());
