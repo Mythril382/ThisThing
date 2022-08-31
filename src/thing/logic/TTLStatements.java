@@ -141,7 +141,7 @@ public class TTLStatements{
         void rebuild(Table table){
             table.clearChildren();
             fields(table, result, str -> result = str);
-            table.add(" = ");
+            table.add("=");
             table.button(b -> {
                 b.label(() -> method.name());
                 b.clicked(() -> showSelect(b, LRand.all, method, o -> {
@@ -204,7 +204,7 @@ public class TTLStatements{
             fields(table, result, str -> result = str);
             table.add("=");
             table.button(b -> {
-                b.label(() -> method.name());
+                b.label(() -> op.name());
                 b.clicked(() -> showSelect(b, LStringOp.all, op, o -> {
                     op = o;
                     rebuild(table);
@@ -233,7 +233,7 @@ public class TTLStatements{
         public void write(StringBuilder builder){
             builder
                 .append("stringop ")
-                .append(method.name())
+                .append(op.name())
                 .append(" ")
                 .append(string)
                 .append(" ")
