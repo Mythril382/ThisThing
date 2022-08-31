@@ -178,16 +178,16 @@ public class TTLStatements{
         }
     }
     
-    public static class StringMethodStatement extends LStatement{
-        public LStringMethod method = LStringMethod.charAt;
+    public static class StringOpStatement extends LStatement{
+        public LStringOp op = LStringOp.charAt;
         public String string = "\"string\"", p1 = "1", result = "result";
         
-        public StringMethodStatement(){
+        public StringOpStatement(){
         }
         
-        public StringMethodStatement(String method, String string, String p1, String result){
+        public StringOpStatement(String op, String string, String p1, String result){
             try{
-                this.method = LStringMethod.valueOf(method);
+                this.op = LStringOp.valueOf(op);
             }catch(Throwable ignored){}
             this.string = string;
             this.p1 = p1;
@@ -202,26 +202,25 @@ public class TTLStatements{
         void rebuild(Table table){
             table.clearChildren();
             fields(table, result, str -> result = str);
-            table.add(" = ");
-            row(table);
+            table.add("=");
             table.button(b -> {
                 b.label(() -> method.name());
-                b.clicked(() -> showSelect(b, LStringMethod.all, method, o -> {
-                    method = o;
+                b.clicked(() -> showSelect(b, LStringOp.all, op, o -> {
+                    op = o;
                     rebuild(table);
                 }, 2, c -> c.size(120f, 40f)));
             }, Styles.logict, () -> {}).size(120f, 40f).pad(4f).color(table.color);
             row(table);
             fields(table, string, str -> string = str);
             // i know i could just do this with an if statement but why not
-            switch(method){
+            switch(op){
                 case charAt, concat -> fields(table, p1, str -> p1 = str);
             }
         }
         
         @Override
         public LInstruction build(LAssembler b){
-            return new StringMethodI(method, b.var(string), b.var(p1), b.var(result));
+            return new StringOpI(op, b.var(string), b.var(p1), b.var(result));
         }
         
         @Override
@@ -233,7 +232,7 @@ public class TTLStatements{
         @Override
         public void write(StringBuilder builder){
             builder
-                .append("stringmethod ")
+                .append("stringop ")
                 .append(method.name())
                 .append(" ")
                 .append(string)
@@ -248,7 +247,7 @@ public class TTLStatements{
         registerStatement("shake", args -> new ShakeStatement(args[1], args[2], args[3]), ShakeStatement::new);
         registerStatement("playsound", args -> new PlaySoundStatement(args[1], args[2], args[3], args[4], args[5], args[6]), PlaySoundStatement::new);
         registerStatement("rand", args -> new RandStatement(args[1], args[2], args[3], args[4]), RandStatement::new);
-        registerStatement("stringmethod", args -> new StringMethodStatement(args[1], args[2], args[3], args[4]), StringMethodStatement::new);
+        registerStatement("stringop", args -> new StringOpStatement(args[1], args[2], args[3], args[4]), StringOpStatement::new);
     }
     
     /** Mimics the RegisterStatement annotation.

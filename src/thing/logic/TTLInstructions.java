@@ -76,15 +76,15 @@ public class TTLInstructions{
         }
     }
     
-    public static class StringMethodI implements LInstruction{
-        public LStringMethod method = LStringMethod.charAt;
+    public static class StringOpI implements LInstruction{
+        public LStringOp op = LStringOp.charAt;
         public int string, p1, result;
         
-        public StringMethodI(){
+        public StringOpI(){
         }
         
-        public StringMethodI(LStringMethod method, int string, int p1, int result){
-            this.method = method;
+        public StringOpI(LStringOp op, int string, int p1, int result){
+            this.op = op;
             this.string = string;
             this.p1 = p1;
             this.result = result;
@@ -93,7 +93,7 @@ public class TTLInstructions{
         @Override
         public void run(LExecutor exec){
             if(exec.obj(string) instanceof String str){
-                switch(method){
+                switch(op){
                     case charAt -> {
                         try{
                             exec.setobj(result, String.valueOf(str.charAt(exec.numi(p1))));
