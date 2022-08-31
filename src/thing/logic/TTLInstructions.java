@@ -102,13 +102,13 @@ public class TTLInstructions{
                         }
                     }
                     case concat -> {
-                        Var str2 = exec.var(p1);
-                        exec.setobj(result, str.concat(String.valueOf(str2.isobj ? str2.objval : str2.numval)));
+                        Var v = exec.var(p1);
+                        exec.setobj(result, str.concat(v.isobj ? PrintI.toString(v.objval) : String.valueOf((Math.abs(v.numval - (long)v.numval) < 0.00001) ? (long)v.numval : v.numval)));
                     }
                     case isEmpty -> exec.setbool(result, str.isEmpty());
                     case length -> exec.setnum(result, str.length());
-                    case toLowerCase -> exec.setobj(result, str.toLowerCase());
-                    case toUpperCase -> exec.setobj(result, str.toUpperCase());
+                    case toLowerCase -> exec.setobj(result, str.toLowerCase(Core.bundle.getLocale()));
+                    case toUpperCase -> exec.setobj(result, str.toUpperCase(Core.bundle.getLocale()));
                 }
             }else{
                 exec.setobj(result, null);
