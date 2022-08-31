@@ -103,7 +103,7 @@ public class TTLInstructions{
                     }
                     case concat -> {
                         Var str2 = exec.var(p1);
-                        exec.setobj(result, str.concat(String.valueOf(str2.isobj ? str2.objval : str2.numval));
+                        exec.setobj(result, str.concat(String.valueOf(str2.isobj ? str2.objval : str2.numval)));
                     }
                     case isEmpty -> exec.setbool(result, str.isEmpty());
                     case length -> exec.setnum(result, str.length());
