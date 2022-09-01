@@ -276,7 +276,7 @@ public class TTLStatements{
         registerStatement("playsound", args -> new PlaySoundStatement(args[1], args[2], args[3], args[4], args[5], args[6]), PlaySoundStatement::new);
         registerStatement("rand", args -> new RandStatement(args[1], args[2], args[3], args[4]), RandStatement::new);
         registerStatement("stringop", args -> new StringOpStatement(args[1], args[2], args[3], args[4]), StringOpStatement::new);
-        registerStatement("arrivalgif", ArrivalGifStatement::new, ArrivalGifStatement::new);
+        registerStatement("arrivalgif", args -> new ArrivalGifStatement(), ArrivalGifStatement::new);
     }
     
     /** Mimics the RegisterStatement annotation.
