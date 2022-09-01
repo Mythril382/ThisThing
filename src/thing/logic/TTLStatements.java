@@ -6,6 +6,7 @@ import mindustry.gen.*;
 import mindustry.logic.*;
 import mindustry.logic.LExecutor.*;
 import mindustry.ui.*;
+import thing.*;
 import thing.logic.TTLInstructions.*;
 
 public class TTLStatements{
@@ -243,11 +244,39 @@ public class TTLStatements{
         }
     }
     
+    public static class ArrivalGifStatement extends LStatement{
+        @Override
+        public void build(Table table){
+            table.image(ThisThing.arrival);
+        }
+        
+        @Override
+        public LInstruction build(LAssembler b){
+            return null;
+        }
+        
+        @Override
+        public LCategory category(){
+            return TTLogic.categoryMisc;
+        }
+        
+        @Override
+        public void write(StringBuilder builder){
+            builder.append("arrivalgif");
+        }
+        
+        @Override
+        public String name(){
+            return "arrival.gif";
+        }
+    }
+    
     public static void load(){
         registerStatement("shake", args -> new ShakeStatement(args[1], args[2], args[3]), ShakeStatement::new);
         registerStatement("playsound", args -> new PlaySoundStatement(args[1], args[2], args[3], args[4], args[5], args[6]), PlaySoundStatement::new);
         registerStatement("rand", args -> new RandStatement(args[1], args[2], args[3], args[4]), RandStatement::new);
         registerStatement("stringop", args -> new StringOpStatement(args[1], args[2], args[3], args[4]), StringOpStatement::new);
+        registerStatement("arrivalgif", ArrivalGifStatement::new, ArrivalGifStatement::new);
     }
     
     /** Mimics the RegisterStatement annotation.
