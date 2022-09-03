@@ -271,12 +271,51 @@ public class TTLStatements{
         }
     }
     
+    public static class ReadMessageStatement extends LStatement{
+        public String building = "message1", result = "result";
+        
+        public ReadMessageStatement(){
+        }
+        
+        public ReadMessageStatement(String building, String result){
+            this.building = building;
+            this.result = result;
+        }
+        
+        @Override
+        public void build(Table table){
+            fields(table, result, str -> result = str);
+            table.add(" = message of ");
+            fields(table, building, str -> building = str);
+        }
+        
+        @Override
+        public LInstruction build(LAssembler b){
+            return new ReadMessageI(b.var(building), b.var(result));
+        }
+        
+        @Override
+        public LCategory category(){
+            return LCategory.io;
+        }
+        
+        @Override
+        public void write(StringBuilder builder){
+            builder
+                .append("readmessage ")
+                .append(building)
+                .append(" ")
+                .append(result);
+        }
+    }
+    
     public static void load(){
         registerStatement("shake", args -> new ShakeStatement(args[1], args[2], args[3]), ShakeStatement::new);
         registerStatement("playsound", args -> new PlaySoundStatement(args[1], args[2], args[3], args[4], args[5], args[6]), PlaySoundStatement::new);
         registerStatement("rand", args -> new RandStatement(args[1], args[2], args[3], args[4]), RandStatement::new);
         registerStatement("stringop", args -> new StringOpStatement(args[1], args[2], args[3], args[4]), StringOpStatement::new);
         registerStatement("arrivalgif", args -> new ArrivalGifStatement(), ArrivalGifStatement::new);
+        registerStatement("readmessage", args -> new ReadMessageStatement(args[1], args[2]), ReadMessageStatement::new);
     }
     
     /** Mimics the RegisterStatement annotation.
