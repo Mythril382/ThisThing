@@ -209,8 +209,8 @@ public class TTLStatements{
                 b.clicked(() -> showSelect(b, LStringOp.all, op, o -> {
                     op = o;
                     rebuild(table);
-                }, 2, c -> c.size(120f, 40f)));
-            }, Styles.logict, () -> {}).size(120f, 40f).pad(4f).color(table.color);
+                }, 2, c -> c.size(150f, 40f)));
+            }, Styles.logict, () -> {}).size(150f, 40f).pad(4f).color(table.color);
             row(table);
             fields(table, string, str -> string = str);
             // i know i could just do this with an if statement but why not
