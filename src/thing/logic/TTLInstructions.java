@@ -6,6 +6,7 @@ import mindustry.core.*;
 import mindustry.entities.*;
 import mindustry.logic.*;
 import mindustry.logic.LExecutor.*;
+import mindustry.world.blocks.logic.MessageBlock.*;
 
 public class TTLInstructions{
     public static class ShakeI implements LInstruction{
@@ -114,6 +115,23 @@ public class TTLInstructions{
             }else{
                 exec.setobj(result, null);
             }
+        }
+    }
+    
+    public static class ReadMessageI implements LInstruction{
+        public int building, result;
+        
+        public ReadMessageI(){
+        }
+        
+        public ReadMessageI(int building, int result){
+            this.building = building;
+            this.result = result;
+        }
+        
+        @Override
+        public void run(LExecutor exec){
+            if(exec.obj(building) instanceof MessageBuild message) exec.setobj(result, message.message.toString());
         }
     }
 }
