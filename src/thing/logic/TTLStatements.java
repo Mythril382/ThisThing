@@ -57,7 +57,7 @@ public class TTLStatements{
         }
     }
     
-    public static class PlaySoundStatement extends LStatement{
+    /* public static class PlaySoundStatement extends LStatement{
         public String usePos = "true", x = "0", y = "0", volume = "1", pitch = "1", sound = "@sfxpew";
         
         public PlaySoundStatement(){
@@ -116,7 +116,7 @@ public class TTLStatements{
                 .append(" ")
                 .append(sound);
         }
-    }
+    } */
     
     public static class RandStatement extends LStatement{
         public LRand method = LRand.nextDouble;
