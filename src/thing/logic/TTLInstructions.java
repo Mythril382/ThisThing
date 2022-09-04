@@ -1,7 +1,7 @@
 package thing.logic;
 
 import arc.*;
-import arc.audio.*;
+// import arc.audio.*;
 import mindustry.core.*;
 import mindustry.entities.*;
 import mindustry.logic.*;
@@ -27,7 +27,7 @@ public class TTLInstructions{
         }
     }
     
-    public static class PlaySoundI implements LInstruction{
+    /* public static class PlaySoundI implements LInstruction{
         public int usePos, x, y, volume, pitch, sound;
         
         public PlaySoundI(){
@@ -52,7 +52,7 @@ public class TTLInstructions{
                 }
             }
         }
-    }
+    } */
     
     public static class RandI implements LInstruction{
         public LRand method = LRand.nextDouble;
