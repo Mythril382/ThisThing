@@ -7,6 +7,8 @@ import mindustry.logic.*;
 import mindustry.logic.LExecutor.*;
 import mindustry.world.blocks.logic.MessageBlock.*;
 
+import static arc.Core.*;
+
 public class TTLInstructions{
     public static class ShakeI implements LInstruction{
         public int intensity, x, y;
@@ -108,8 +110,8 @@ public class TTLInstructions{
                     }
                     case isEmpty -> exec.setbool(result, str.isEmpty());
                     case length -> exec.setnum(result, str.length());
-                    case toLowerCase -> exec.setobj(result, str.toLowerCase(Core.bundle.getLocale()));
-                    case toUpperCase -> exec.setobj(result, str.toUpperCase(Core.bundle.getLocale()));
+                    case toLowerCase -> exec.setobj(result, str.toLowerCase(bundle.getLocale()));
+                    case toUpperCase -> exec.setobj(result, str.toUpperCase(bundle.getLocale()));
                 }
             }else{
                 exec.setobj(result, null);
