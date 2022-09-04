@@ -1,5 +1,6 @@
 package thing;
 
+import arc.*;
 import arc.graphics.g2d.*;
 // import arc.struct.*;
 import arc.util.*;
