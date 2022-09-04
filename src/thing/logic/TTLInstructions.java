@@ -153,7 +153,7 @@ public class TTLInstructions{
         
         @Override
         public void run(LExecutor exec){
-            if(exec.obj(liquid) instanceof Liquid l) Puddles.deposit(world.tile(exec.numi(x), exec.num(y)), l, exec.numf(amount));
+            if(exec.obj(liquid) instanceof Liquid l) Puddles.deposit(world.tile(exec.numi(x), exec.numi(y)), l, exec.numf(amount));
         }
     }
     
