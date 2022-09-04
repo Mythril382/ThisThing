@@ -1,6 +1,5 @@
 package thing;
 
-import arc.*;
 import arc.graphics.g2d.*;
 // import arc.struct.*;
 import arc.util.*;
@@ -10,6 +9,7 @@ import mindustry.mod.*;
 // import thing.ai.*;
 import thing.logic.*;
 
+import static arc.Core.*;
 import static mindustry.Vars.*;
 
 public class ThisThing extends Mod{
@@ -19,7 +19,7 @@ public class ThisThing extends Mod{
         Events.on(ClientLoadEvent.class, e -> {
             TextureRegion[] arrivals = new TextureRegion[8];
             for(int i = 0; i <= 7; i++){
-                arrivals[i] = Core.atlas.find("this-thing-arrival" + i);
+                arrivals[i] = atlas.find("this-thing-arrival" + i);
             }
             arrival = arrivals[0];
             Events.run(Trigger.update, () -> {
