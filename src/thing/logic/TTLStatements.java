@@ -309,6 +309,100 @@ public class TTLStatements{
         }
     }
     
+    public static class AddPuddleStatement extends LStatement{
+        public String x = "10", y = "10", liquid = "@slag", amount = "5";
+        
+        public AddPuddleStatement(){
+        }
+        
+        public AddPuddleStatement(String x, String y, String liquid, String amount){
+            this.x = x;
+            this.y = y;
+            this.liquid = liquid;
+            this.amount = amount;
+        }
+        
+        @Override
+        public void build(Table table){
+            fields(table, "x", x, str -> x = str);
+            fields(table, "y", y, str -> y = str);
+            row(table);
+            fields(table, "liquid", liquid, str -> liquid = str);
+            row(table);
+            fields(table, "amount", amount, str -> amount = str);
+        }
+        
+        @Override
+        public LInstruction build(LAssembler b){
+            return new AddPuddleI(b.var(x), b.var(y), b.var(liquid), b.var(amount));
+        }
+        
+        @Override
+        public boolean privileged(){
+            return true;
+        }
+        
+        @Override
+        public LCategory category(){
+            return LCategory.world;
+        }
+        
+        @Override
+        public void write(StringBuilder builder){
+            builder
+                .append("addpuddle ")
+                .append(x)
+                .append(" ")
+                .append(y)
+                .append(" ")
+                .append(liquid)
+                .append(" ")
+                .append(amount);
+        }
+    }
+    
+    public static class AddFireStatement extends LStatement{
+        public String x = "10", y = "10";
+        
+        public AddFireStatement(){
+        }
+        
+        public AddFireStatement(String x, String y){
+            this.x = x;
+            this.y = y;
+        }
+        
+        @Override
+        public void build(Table table){
+            fields(table, "x", x, str -> x = str);
+            fields(table, "y", y, str -> y = str);
+        }
+        
+        @Override
+        public LInstruction build(LAssembler b){
+            return new AddFireI(b.var(x), b.var(y));
+        }
+        
+        @Override
+        public boolean privileged(){
+            return true;
+        }
+        
+        @Override
+        public LCategory category(){
+            return LCategory.world;
+        }
+        
+        @Override
+        public void write(StringBuilder builder){
+            builder
+                .append("addfire ")
+                .append(x)
+                .append(" ")
+                .append(y);
+        }
+    }
+    
     public static void load(){
         registerStatement("shake", args -> new ShakeStatement(args[1], args[2], args[3]), ShakeStatement::new);
         // registerStatement("playsound", args -> new PlaySoundStatement(args[1], args[2], args[3], args[4], args[5], args[6]), PlaySoundStatement::new);
@@ -316,6 +410,8 @@ public class TTLStatements{
         registerStatement("stringop", args -> new StringOpStatement(args[1], args[2], args[3], args[4]), StringOpStatement::new);
         registerStatement("arrivalgif", args -> new ArrivalGifStatement(), ArrivalGifStatement::new);
         registerStatement("readmessage", args -> new ReadMessageStatement(args[1], args[2]), ReadMessageStatement::new);
+        registerStatement("addpuddle", args -> new AddPuddleStatement(args[1], args[2], args[3], args[4]), AddPuddleStatement::new);
+        registerStatement("addfire", args -> new AddFireStatement(args[1], args[2]), AddFireStatement::new);
     }
     
     /** Mimics the RegisterStatement annotation.

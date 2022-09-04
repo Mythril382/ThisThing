@@ -5,9 +5,11 @@ import mindustry.core.*;
 import mindustry.entities.*;
 import mindustry.logic.*;
 import mindustry.logic.LExecutor.*;
+import mindustry.type.*;
 import mindustry.world.blocks.logic.MessageBlock.*;
 
 import static arc.Core.*;
+import static mindustry.Vars.*;
 
 public class TTLInstructions{
     public static class ShakeI implements LInstruction{
@@ -133,6 +135,42 @@ public class TTLInstructions{
         @Override
         public void run(LExecutor exec){
             if(exec.obj(building) instanceof MessageBuild message) exec.setobj(result, message.message.toString());
+        }
+    }
+    
+    public static class AddPuddleI implements LInstruction{
+        public int x, y, liquid, amount;
+        
+        public AddPuddleI(){
+        }
+        
+        public AddPuddleI(int x, int y, int liquid, int amount){
+            this.x = x;
+            this.y = y;
+            this.liquid = liquid;
+            this.amount = amount;
+        }
+        
+        @Override
+        public void run(LExecutor exec){
+            if(exec.obj(liquid) instanceof Liquid l) Puddles.deposit(world.tile(exec.numi(x), exec.num(y)), l, exec.numf(amount));
+        }
+    }
+    
+    public static class AddFireI implements LInstruction{
+        public int x, y;
+        
+        public AddFireI(){
+        }
+        
+        public AddFireI(int x, int y){
+            this.x = x;
+            this.y = y;
+        }
+        
+        @Override
+        public void run(LExecutor exec){
+            Fires.create(world.tile(exec.numi(x), exec.numi(y)));
         }
     }
 }
