@@ -7,6 +7,7 @@ import arc.util.*; */
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.logic.*;
+import mindustry.world.meta.*;
 
 import static mindustry.Vars.*;
 
@@ -26,5 +27,17 @@ public class TTLogic{
                 logicVars.put("@sfx" + name, sound);
             }
         } */
+        
+        // env enums
+        logicVars.put("@envTerrestrial", Env.terrestrial);
+        logicVars.put("@envSpace", Env.space);
+        logicVars.put("@envUnderwater", Env.underwater);
+        logicVars.put("@envSpores", Env.spores);
+        logicVars.put("@envScorching", Env.scorching);
+        logicVars.put("@envGroundOil", Env.groundOil);
+        logicVars.put("@envGroundWater", Env.groundWater);
+        logicVars.put("@envOxygen", Env.oxygen);
+        logicVars.put("@envAny", Env.any);
+        logicVars.put("@envNone", Env.none);
     }
 }
