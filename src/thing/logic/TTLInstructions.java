@@ -102,7 +102,7 @@ public class TTLInstructions{
         public LColorOp op = LColorOp.mul;
         public int color, p1, p2, p3, p4, p5, result;
         
-        public ColoropI(){
+        public ColorOpI(){
         }
         
         public ColorOpI(LColorOp op, int color, int p1, int p2, int p3, int p4, int p5, int result){
