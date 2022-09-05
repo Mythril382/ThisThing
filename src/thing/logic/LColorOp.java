@@ -12,11 +12,10 @@ public enum LColorOp{
     subRGB,
     subC,
     sum,
-    clamp,
     inv,
     lerp,
     lerpRGBA,
-    preMulA,
+    premulA,
     hue,
     sat,
     val,
@@ -26,7 +25,7 @@ public enum LColorOp{
     shiftHue,
     shiftSat,
     shiftVal,
-    toString;
+    colToString;
     
     public static final LColorOp[] all = values();
 }

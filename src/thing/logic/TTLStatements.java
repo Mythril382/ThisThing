@@ -10,113 +10,47 @@ import thing.*;
 import thing.logic.TTLInstructions.*;
 
 public class TTLStatements{
-    public static class ShakeStatement extends LStatement{
-        public String intensity = "10", x = "0", y = "0";
+    // IO
+    
+    public static class ReadMessageStatement extends LStatement{
+        public String building = "message1", result = "result";
         
-        public ShakeStatement(){
+        public ReadMessageStatement(){
         }
         
-        public ShakeStatement(String intensity, String x, String y){
-            this.intensity = intensity;
-            this.x = x;
-            this.y = y;
+        public ReadMessageStatement(String building, String result){
+            this.building = building;
+            this.result = result;
         }
         
         @Override
         public void build(Table table){
-            fields(table, "intensity", intensity, str -> intensity = str);
-            row(table);
-            fields(table, "x", x, str -> x = str);
-            fields(table, "y", y, str -> y = str);
-        }
-        
-        @Override
-        public boolean privileged(){
-            return true;
+            fields(table, result, str -> result = str);
+            table.add(" = message of ");
+            fields(table, building, str -> building = str);
         }
         
         @Override
         public LInstruction build(LAssembler b){
-            return new ShakeI(b.var(intensity), b.var(x), b.var(y));
+            return new ReadMessageI(b.var(building), b.var(result));
         }
         
         @Override
         public LCategory category(){
-            return LCategory.world;
+            return LCategory.io;
         }
         
         @Override
         public void write(StringBuilder builder){
             builder
-                .append("shake ")
-                .append(intensity)
+                .append("readmessage ")
+                .append(building)
                 .append(" ")
-                .append(x)
-                .append(" ")
-                .append(y);
+                .append(result);
         }
     }
     
-    /* public static class PlaySoundStatement extends LStatement{
-        public String usePos = "true", x = "0", y = "0", volume = "1", pitch = "1", sound = "@sfxpew";
-        
-        public PlaySoundStatement(){
-        }
-        
-        public PlaySoundStatement(String usePos, String x, String y, String volume, String pitch, String sound){
-            this.usePos = usePos;
-            this.x = x;
-            this.y = y;
-            this.volume = volume;
-            this.pitch = pitch;
-            this.sound = sound;
-        }
-        
-        @Override
-        public void build(Table table){
-            fields(table, "usePos", usePos, str -> usePos = str);
-            row(table);
-            fields(table, "x", x, str -> x = str);
-            fields(table, "y", y, str -> y = str);
-            row(table);
-            fields(table, "volume", volume, str -> volume = str);
-            fields(table, "pitch", pitch, str -> pitch = str);
-            row(table);
-            fields(table, "sound", sound, str -> sound = str);
-        }
-        
-        @Override
-        public boolean privileged(){
-            return true;
-        }
-        
-        @Override
-        public LInstruction build(LAssembler b){
-            return new PlaySoundI(b.var(usePos), b.var(x), b.var(y), b.var(volume), b.var(pitch), b.var(sound));
-        }
-        
-        @Override
-        public LCategory category(){
-            return LCategory.world;
-        }
-        
-        @Override
-        public void write(StringBuilder builder){
-            builder
-                .append("playsound ")
-                .append(usePos)
-                .append(" ")
-                .append(x)
-                .append(" ")
-                .append(y)
-                .append(" ")
-                .append(volume)
-                .append(" ")
-                .append(pitch)
-                .append(" ")
-                .append(sound);
-        }
-    } */
+    // Operation
     
     public static class RandStatement extends LStatement{
         public LRand method = LRand.nextDouble;
@@ -229,7 +163,6 @@ public class TTLStatements{
             return LCategory.operation;
         }
         
-        
         @Override
         public void write(StringBuilder builder){
             builder
@@ -244,70 +177,233 @@ public class TTLStatements{
         }
     }
     
-    public static class ArrivalGifStatement extends LStatement{
-        @Override
-        public void build(Table table){
-            table.image(ThisThing.arrival);
+    public static class ColorOpStatement extends LStatement{
+        public LColorOp op = LColorOp.mul;
+        public String color = "color", p1 = "a", p2 = "b", p3 = "c", p4 = "d", p5 = "e", result = "result";
+        
+        public ColorOpStatement(){
         }
         
-        @Override
-        public LInstruction build(LAssembler b){
-            return null;
-        }
-        
-        @Override
-        public LCategory category(){
-            return TTLogic.categoryMisc;
-        }
-        
-        @Override
-        public void write(StringBuilder builder){
-            builder.append("arrivalgif");
-        }
-        
-        @Override
-        public String name(){
-            return "arrival.gif";
-        }
-    }
-    
-    public static class ReadMessageStatement extends LStatement{
-        public String building = "message1", result = "result";
-        
-        public ReadMessageStatement(){
-        }
-        
-        public ReadMessageStatement(String building, String result){
-            this.building = building;
+        public ColorOpStatement(String op, String color, String p1, String p2, String p3, String p4, String p5, String result){
+            try{
+                this.op = LColorOp.valueOf(op);
+            }catch(Throwable ignored){}
+            this.color = color;
+            this.p1 = p1;
+            this.p2 = p2;
+            this.p3 = p3;
+            this.p4 = p4;
+            this.p5 = p5;
             this.result = result;
         }
         
         @Override
         public void build(Table table){
+            rebuild(table);
+        }
+        
+        void rebuild(Table table){
+            table.clearChildren();
             fields(table, result, str -> result = str);
-            table.add(" = message of ");
-            fields(table, building, str -> building = str);
+            table.add(" = ");
+            table.button(b -> {
+                b.label(() -> op.name());
+                b.clicked(() -> showSelect(b, LColorOp.all, op, o -> {
+                    op = o;
+                    rebuild(table);
+                }, 2, c -> c.size(120f, 40f)));
+            }, Styles.logict, () -> {}).size(120f, 40f).pad(4f).color(table.color);
+            row(table);
+            fields(table, "color", color, str -> color = str);
+            switch(op){
+                case lerpRGBA -> {
+                    row(table);
+                    fields(table, "r", p1, str -> p1 = str);
+                    row(table);
+                    fields(table, "g", p2, str -> p2 = str);
+                    row(table);
+                    fields(table, "b", p3, str -> p3 = str);
+                    row(table);
+                    fields(table, "a", p4, str -> p4 = str);
+                    row(table);
+                    fields(table, "t", p5, str -> p5 = str);
+                }
+                case mulRGBA, addRGBA, subRGBA -> {
+                    row(table);
+                    fields(table, "r", p1, str -> p1 = str);
+                    row(table);
+                    fields(table, "g", p2, str -> p2 = str);
+                    row(table);
+                    fields(table, "b", p3, str -> p3 = str);
+                    row(table);
+                    fields(table, "a", p4, str -> p4 = str);
+                }
+                case addRGB, subRGB -> {
+                    row(table);
+                    fields(table, "r", p1, str -> p1 = str);
+                    row(table);
+                    fields(table, "g", p2, str -> p2 = str);
+                    row(table);
+                    fields(table, "b", p3, str -> p3 = str);
+                }
+                case lerp -> {
+                    row(table);
+                    fields(table, "color 2", p1, str -> p1 = str);
+                    row(table);
+                    fields(table, "t", p2, str -> p2 = str);
+                }
+                case mul, mulA, setHue, setSat, setVal, shiftHue, shiftSat, shiftVal -> {
+                    row(table);
+                    fields(table, "value", p1, str -> p1 = str);
+                }
+                case mulC, addC, subC -> {
+                    row(table);
+                    fields(table, "color 2", p1, str -> p1 = str);
+                }
+            }
         }
         
         @Override
         public LInstruction build(LAssembler b){
-            return new ReadMessageI(b.var(building), b.var(result));
+            return new ColorOpI(op, b.var(color), b.var(p1), b.var(p2), b.var(p3), b.var(p4), b.var(p5), b.var(result));
         }
         
         @Override
         public LCategory category(){
-            return LCategory.io;
+            return LCategory.operation;
         }
         
         @Override
         public void write(StringBuilder builder){
             builder
-                .append("readmessage ")
-                .append(building)
+                .append("colorop ")
+                .append(op.name())
+                .append(" ")
+                .append(color)
+                .append(" ")
+                .append(p1)
+                .append(" ")
+                .append(p2)
+                .append(" ")
+                .append(p3)
+                .append(" ")
+                .append(p4)
+                .append(" ")
+                .append(p5)
                 .append(" ")
                 .append(result);
         }
     }
+    
+    // World
+    
+    public static class ShakeStatement extends LStatement{
+        public String intensity = "10", x = "0", y = "0";
+        
+        public ShakeStatement(){
+        }
+        
+        public ShakeStatement(String intensity, String x, String y){
+            this.intensity = intensity;
+            this.x = x;
+            this.y = y;
+        }
+        
+        @Override
+        public void build(Table table){
+            fields(table, "intensity", intensity, str -> intensity = str);
+            row(table);
+            fields(table, "x", x, str -> x = str);
+            fields(table, "y", y, str -> y = str);
+        }
+        
+        @Override
+        public boolean privileged(){
+            return true;
+        }
+        
+        @Override
+        public LInstruction build(LAssembler b){
+            return new ShakeI(b.var(intensity), b.var(x), b.var(y));
+        }
+        
+        @Override
+        public LCategory category(){
+            return LCategory.world;
+        }
+        
+        @Override
+        public void write(StringBuilder builder){
+            builder
+                .append("shake ")
+                .append(intensity)
+                .append(" ")
+                .append(x)
+                .append(" ")
+                .append(y);
+        }
+    }
+    
+    /* public static class PlaySoundStatement extends LStatement{
+        public String usePos = "true", x = "0", y = "0", volume = "1", pitch = "1", sound = "@sfxpew";
+        
+        public PlaySoundStatement(){
+        }
+        
+        public PlaySoundStatement(String usePos, String x, String y, String volume, String pitch, String sound){
+            this.usePos = usePos;
+            this.x = x;
+            this.y = y;
+            this.volume = volume;
+            this.pitch = pitch;
+            this.sound = sound;
+        }
+        
+        @Override
+        public void build(Table table){
+            fields(table, "usePos", usePos, str -> usePos = str);
+            row(table);
+            fields(table, "x", x, str -> x = str);
+            fields(table, "y", y, str -> y = str);
+            row(table);
+            fields(table, "volume", volume, str -> volume = str);
+            fields(table, "pitch", pitch, str -> pitch = str);
+            row(table);
+            fields(table, "sound", sound, str -> sound = str);
+        }
+        
+        @Override
+        public boolean privileged(){
+            return true;
+        }
+        
+        @Override
+        public LInstruction build(LAssembler b){
+            return new PlaySoundI(b.var(usePos), b.var(x), b.var(y), b.var(volume), b.var(pitch), b.var(sound));
+        }
+        
+        @Override
+        public LCategory category(){
+            return LCategory.world;
+        }
+        
+        @Override
+        public void write(StringBuilder builder){
+            builder
+                .append("playsound ")
+                .append(usePos)
+                .append(" ")
+                .append(x)
+                .append(" ")
+                .append(y)
+                .append(" ")
+                .append(volume)
+                .append(" ")
+                .append(pitch)
+                .append(" ")
+                .append(sound);
+        }
+    } */
     
     public static class AddPuddleStatement extends LStatement{
         public String x = "10", y = "10", liquid = "@slag", amount = "5";
@@ -403,15 +499,56 @@ public class TTLStatements{
         }
     }
     
+    // Miscellaneous
+    
+    public static class ArrivalGifStatement extends LStatement{
+        @Override
+        public void build(Table table){
+            table.image(ThisThing.arrival);
+        }
+        
+        @Override
+        public LInstruction build(LAssembler b){
+            return null;
+        }
+        
+        @Override
+        public LCategory category(){
+            return TTLogic.categoryMisc;
+        }
+        
+        @Override
+        public void write(StringBuilder builder){
+            builder.append("arrivalgif");
+        }
+        
+        @Override
+        public String name(){
+            return "arrival.gif";
+        }
+    }
+    
     public static void load(){
-        registerStatement("shake", args -> new ShakeStatement(args[1], args[2], args[3]), ShakeStatement::new);
-        // registerStatement("playsound", args -> new PlaySoundStatement(args[1], args[2], args[3], args[4], args[5], args[6]), PlaySoundStatement::new);
+        // IO
+        
+        registerStatement("readmessage", args -> new ReadMessageStatement(args[1], args[2]), ReadMessageStatement::new);
+        
+        // Operation
+        
         registerStatement("rand", args -> new RandStatement(args[1], args[2], args[3], args[4]), RandStatement::new);
         registerStatement("stringop", args -> new StringOpStatement(args[1], args[2], args[3], args[4]), StringOpStatement::new);
-        registerStatement("arrivalgif", args -> new ArrivalGifStatement(), ArrivalGifStatement::new);
-        registerStatement("readmessage", args -> new ReadMessageStatement(args[1], args[2]), ReadMessageStatement::new);
+        registerStatement("colorop", args -> new ColorOpStatement(args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8]), ColorOpStatement::new);
+        
+        // World
+        
+        registerStatement("shake", args -> new ShakeStatement(args[1], args[2], args[3]), ShakeStatement::new);
+        // registerStatement("playsound", args -> new PlaySoundStatement(args[1], args[2], args[3], args[4], args[5], args[6]), PlaySoundStatement::new);
         registerStatement("addpuddle", args -> new AddPuddleStatement(args[1], args[2], args[3], args[4]), AddPuddleStatement::new);
         registerStatement("addfire", args -> new AddFireStatement(args[1], args[2]), AddFireStatement::new);
+        
+        // Miscellaneous
+        
+        registerStatement("arrivalgif", args -> new ArrivalGifStatement(), ArrivalGifStatement::new);
     }
     
     /** Mimics the RegisterStatement annotation.
