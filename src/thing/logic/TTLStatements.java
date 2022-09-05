@@ -211,8 +211,8 @@ public class TTLStatements{
                 b.clicked(() -> showSelect(b, LColorOp.all, op, o -> {
                     op = o;
                     rebuild(table);
-                }, 2, c -> c.size(120f, 40f)));
-            }, Styles.logict, () -> {}).size(120f, 40f).pad(4f).color(table.color);
+                }, 2, c -> c.size(140f, 40f)));
+            }, Styles.logict, () -> {}).size(140f, 40f).pad(4f).color(table.color);
             row(table);
             fields(table, "color", color, str -> color = str);
             switch(op){
