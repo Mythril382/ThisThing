@@ -248,7 +248,7 @@ public class TTLStatements{
                 }
                 case lerp -> {
                     row(table);
-                    fields(table, "color 2", p1, str -> p1 = str);
+                    fields(table, "color2", p1, str -> p1 = str);
                     row(table);
                     fields(table, "t", p2, str -> p2 = str);
                 }
@@ -258,7 +258,7 @@ public class TTLStatements{
                 }
                 case mulC, addC, subC -> {
                     row(table);
-                    fields(table, "color 2", p1, str -> p1 = str);
+                    fields(table, "color2", p1, str -> p1 = str);
                 }
             }
         }
