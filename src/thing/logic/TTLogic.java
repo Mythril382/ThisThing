@@ -35,7 +35,7 @@ public class TTLogic{
         Seq<Field> fields = new Seq<>(fields);
         fields = fields.select(f -> Color.class.isAssignableFrom(f.getType()));
         fields.each(f -> {
-            Color col = f.get(Color.class);
+            Color col = (Color)f.get(Color.class);
             logicVars.put("@col" + f.getName(), Color.toDoubleBits(col.r, col.g, col.b, col.a));
         });
     }
