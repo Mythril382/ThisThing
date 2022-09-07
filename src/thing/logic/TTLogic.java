@@ -31,12 +31,16 @@ public class TTLogic{
         } */
         
         // im not typing in every preset color manually
-        Field[] fieldsArr = Color.class.getFields();
-        Seq<Field> fields = new Seq<>(fields);
-        fields = fields.select(f -> Color.class.isAssignableFrom(f.getType()));
-        fields.each(f -> {
-            Color col = (Color)f.get(Color.class);
-            logicVars.put("@col" + f.getName(), Color.toDoubleBits(col.r, col.g, col.b, col.a));
-        });
+        try{
+            Field[] fieldsArr = Color.class.getFields();
+            Seq<Field> fields = new Seq<>(fieldsArr);
+            fields = fields.select(f -> Color.class.isAssignableFrom(f.getType()));
+            fields.each(f -> {
+                try{
+                    Color col = (Color)f.get(Color.class);
+                    logicVars.put("@col" + f.getName(), Color.toDoubleBits(col.r, col.g, col.b, col.a));
+                }catch(Throwable ignored2){}
+            });
+        }catch(Throwable ignored){}
     }
 }
