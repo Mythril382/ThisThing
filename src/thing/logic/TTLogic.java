@@ -1,13 +1,15 @@
 package thing.logic;
 
 /* import arc.audio.*;
-import arc.files.*;
+import arc.files.*; */
+import arc.graphics.*;
 import arc.struct.*;
-import arc.util.*; */
+// import arc.util.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.logic.*;
-import mindustry.world.meta.*;
+
+import java.lang.reflect.*;
 
 import static mindustry.Vars.*;
 
@@ -28,16 +30,13 @@ public class TTLogic{
             }
         } */
         
-        // env enums
-        logicVars.put("@envTerrestrial", Env.terrestrial);
-        logicVars.put("@envSpace", Env.space);
-        logicVars.put("@envUnderwater", Env.underwater);
-        logicVars.put("@envSpores", Env.spores);
-        logicVars.put("@envScorching", Env.scorching);
-        logicVars.put("@envGroundOil", Env.groundOil);
-        logicVars.put("@envGroundWater", Env.groundWater);
-        logicVars.put("@envOxygen", Env.oxygen);
-        logicVars.put("@envAny", Env.any);
-        logicVars.put("@envNone", Env.none);
+        // im not typing in every preset color manually
+        Field[] fieldsArr = Color.class.getFields();
+        Seq<Fields> fields = new Seq<>(fields);
+        fields = fields.select(f -> Color.class.isAssignableFrom(f.getType()));
+        fields.each(f -> {
+            Color col = f.get(Color.class);
+            logicVars.put("@col" + f.getName(), Color.toDoubleBits(col.r, col.g, col.b, col.a));
+        });
     }
 }
