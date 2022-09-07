@@ -32,7 +32,7 @@ public class TTLogic{
         
         // im not typing in every preset color manually
         Field[] fieldsArr = Color.class.getFields();
-        Seq<Fields> fields = new Seq<>(fields);
+        Seq<Field> fields = new Seq<>(fields);
         fields = fields.select(f -> Color.class.isAssignableFrom(f.getType()));
         fields.each(f -> {
             Color col = f.get(Color.class);
