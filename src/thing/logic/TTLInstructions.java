@@ -7,6 +7,7 @@ import mindustry.entities.*;
 import mindustry.logic.*;
 import mindustry.logic.LExecutor.*;
 import mindustry.type.*;
+import mindustry.world.blocks.logic.LogicDisplay.*;
 import mindustry.world.blocks.logic.MessageBlock.*;
 
 import static arc.Core.*;
@@ -85,7 +86,7 @@ public class TTLInstructions{
                     }
                     case concat -> {
                         Var v = exec.var(p1);
-                        exec.setobj(result, str.concat(v.isobj ? PrintI.toString(v.objval) : String.valueOf((Math.abs(v.numval - (long)v.numval) < 0.00001) ? (long)v.numval : v.numval)));
+                        exec.setobj(result, str.concat(v.isobj ? PrintI.toString(v.objval) : v.numval % 1 == 0 ? Integer.toString((int)v.numval) : Double.toString(v.numval)));
                     }
                     case isEmpty -> exec.setbool(result, str.isEmpty());
                     case length -> exec.setnum(result, str.length());
