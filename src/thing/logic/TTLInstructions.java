@@ -2,11 +2,15 @@ package thing.logic;
 
 // import arc.audio.*;
 import arc.graphics.*;
+import arc.graphics.g2d.*;
 import mindustry.core.*;
 import mindustry.entities.*;
+import mindustry.graphics.*;
 import mindustry.logic.*;
 import mindustry.logic.LExecutor.*;
 import mindustry.type.*;
+import mindustry.ui.*;
+import mindustry.world.*;
 import mindustry.world.blocks.logic.LogicDisplay.*;
 import mindustry.world.blocks.logic.MessageBlock.*;
 
@@ -30,6 +34,71 @@ public class TTLInstructions{
         @Override
         public void run(LExecutor exec){
             if(exec.obj(building) instanceof MessageBuild message) exec.setobj(result, message.message.toString());
+        }
+    }
+    
+    public static class DrawShaderI implements LInstruction{
+        public LShader shader = LShader.shield;
+        public int building, p1, p2, p3, p4;
+        
+        public DrawShaderI(){
+        }
+        
+        public DrawShaderI(LShader shader, int building, int p1, int p2, int p3, int p4){
+            this.shader = shader;
+            this.building = building;
+            this.p1 = p1;
+            this.p2 = p2;
+            this.p3 = p3;
+            this.p4 = p4;
+        }
+        
+        @Override
+        public void run(LExecutor exec){
+            if(exec.obj(building) instanceof LogicDisplayBuild display){
+                switch(shader){
+                    case blockBuild -> {
+                        if(exec.obj(p1) instanceof Block block){
+                            TextureRegion region = block.fullIcon;
+                            Shaders.blockbuild.region = region;
+                            Shaders.blockbuild.progress = exec.numf(p2);
+                            Shaders.blockbuild.time = exec.numf(p3);
+                            display.buffer.blit(Shaders.blockbuild);
+                        }
+                    }
+                    case shield -> {
+                        if(Shaders.shield != null) display.buffer.blit(Shaders.shield);
+                    }
+                    case buildBeam -> display.buffer.blit(Shaders.buildBeam);
+                    case unitBuild -> {
+                        if(exec.obj(p1) instanceof UnitType type){
+                            TextureRegion region = type.fullIcon;
+                            Shaders.build.region = region;
+                            Shaders.build.progress = exec.numf(p2);
+                            Shaders.build.time = exec.numf(p3);
+                            Shaders.build.color = LColorOp.unpack(exec.num(p4));
+                            display.buffer.blit(Shaders.build);
+                        }
+                    }
+                    case unitArmor -> {
+                        if(exec.obj(p1) instanceof UnitType type){
+                            TextureRegion region = type.fullIcon;
+                            Shaders.armor.region = region;
+                            Shaders.armor.progress = exec.numf(p2);
+                            Shaders.armor.time = exec.numf(p3);
+                            display.buffer.blit(Shaders.armor);
+                        }
+                    }
+                    case water -> display.buffer.blit(Shaders.water);
+                    case mud -> display.buffer.blit(Shaders.mud);
+                    case tar -> display.buffer.blit(Shaders.tar);
+                    case slag -> display.buffer.blit(Shaders.slag);
+                    case cryofluid -> display.buffer.blit(Shaders.cryofluid);
+                    case arkycite -> display.buffer.blit(Shaders.arkycite);
+                    case space -> display.buffer.blit(Shaders.space);
+                    case caustics -> display.buffer.blit(Shaders.caustics);
+                }
+            }
         }
     }
     
@@ -150,7 +219,7 @@ public class TTLInstructions{
             }
         }
         
-        private static Color unpack(double col){
+        public static Color unpack(double col){
             int
             val = (int)(Double.doubleToRawLongBits(col)),
             r = ((val & 0xff000000) >>> 24),
@@ -161,7 +230,7 @@ public class TTLInstructions{
             return new Color(r, g, b, a);
         }
         
-        private static double pack(Color col){
+        public static double pack(Color col){
             return Color.toDoubleBits(col.r, col.g, col.b, col.a);
         }
     }
