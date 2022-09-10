@@ -50,98 +50,6 @@ public class TTLStatements{
         }
     }
     
-    public static class DrawShaderStatement extends LStatement{
-        public LShader shader = LShader.shield;
-        public String building = "display1", p1 = "a", p2 = "b", p3 = "c", p4 = "d";
-        
-        public DrawShaderStatement(){
-        }
-        
-        public DrawShaderStatement(String shader, String building, String p1, String p2, String p3, String p4){
-            try{
-                this.shader = LShader.valueOf(shader);
-            }catch(Throwable ignored){}
-            this.building = building;
-            this.p1 = p1;
-            this.p2 = p2;
-            this.p3 = p3;
-            this.p4 = p4;
-        }
-        
-        @Override
-        public void build(Table table){
-            rebuild(table);
-        }
-        
-        void rebuild(Table table){
-            table.clearChildren();
-            table.button(b -> {
-                b.label(() -> shader.name());
-                b.clicked(() -> showSelect(b, LShader.all, shader, o -> {
-                    shader = o;
-                    rebuild(table);
-                }, 2, c -> c.size(120f, 40f)));
-            }, Styles.logict, () -> {}).size(120f, 40f).pad(4f).color(table.color);
-            row(table);
-            fields(table, building, str -> building = str);
-            switch(shader){
-                case unitBuild -> {
-                    row(table);
-                    fields(table, "unit", p1, str -> p1 = str);
-                    row(table);
-                    fields(table, "progress", p2, str -> p2 = str);
-                    row(table);
-                    fields(table, "time", p3, str -> p3 = str);
-                    row(table);
-                    fields(table, "color", p4, str -> p4 = str);
-                }
-                case unitArmor -> {
-                    row(table);
-                    fields(table, "unit", p1, str -> p1 = str);
-                    row(table);
-                    fields(table, "progress", p2, str -> p2 = str);
-                    row(table);
-                    fields(table, "time", p3, str -> p3 = str);
-                }
-                case blockBuild -> {
-                    row(table);
-                    fields(table, "block", p1, str -> p1 = str);
-                    row(table);
-                    fields(table, "progress", p2, str -> p2 = str);
-                    row(table);
-                    fields(table, "time", p3, str -> p3 = str);
-                }
-            }
-        }
-        
-        @Override
-        public LInstruction build(LAssembler b){
-            return new DrawShaderI(shader, b.var(building), b.var(p1), b.var(p2), b.var(p3), b.var(p4));
-        }
-        
-        @Override
-        public LCategory category(){
-            return LCategory.io;
-        }
-        
-        @Override
-        public void write(StringBuilder builder){
-            builder
-                .append("drawshader ")
-                .append(shader.name())
-                .append(" ")
-                .append(building)
-                .append(" ")
-                .append(p1)
-                .append(" ")
-                .append(p2)
-                .append(" ")
-                .append(p3)
-                .append(" ")
-                .append(p4);
-        }
-    }
-    
     // Operation
     
     public static class RandStatement extends LStatement{
@@ -624,7 +532,6 @@ public class TTLStatements{
         // IO
         
         registerStatement("readmessage", args -> new ReadMessageStatement(args[1], args[2]), ReadMessageStatement::new);
-        registerStatement("drawshader", args -> new DrawShaderStatement(args[1], args[2], args[3], args[4], args[5], args[6]), DrawShaderStatement::new);
         
         // Operation
         
