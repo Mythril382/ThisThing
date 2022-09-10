@@ -9,7 +9,6 @@ import mindustry.graphics.*;
 import mindustry.logic.*;
 import mindustry.logic.LExecutor.*;
 import mindustry.type.*;
-import mindustry.ui.*;
 import mindustry.world.*;
 import mindustry.world.blocks.logic.LogicDisplay.*;
 import mindustry.world.blocks.logic.MessageBlock.*;
