@@ -75,7 +75,7 @@ public class TTLInstructions{
                             Shaders.build.region = region;
                             Shaders.build.progress = exec.numf(p2);
                             Shaders.build.time = exec.numf(p3);
-                            Shaders.build.color = LColorOp.unpack(exec.num(p4));
+                            Shaders.build.color = ColorOpI.unpack(exec.num(p4));
                             display.buffer.blit(Shaders.build);
                         }
                     }
