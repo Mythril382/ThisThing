@@ -17,7 +17,7 @@ subtitle: "Is a thing."
 description: "Adds a few logic instructions. No other content for now."
 
 #the mod version
-version: 1.5.1
+version: 1.6.0
 
 #the minimum game build required to run this mod
 minGameVersion: 139
