@@ -4,6 +4,7 @@ package thing.logic;
 import arc.graphics.*;
 import mindustry.core.*;
 import mindustry.entities.*;
+import mindustry.gen.*;
 import mindustry.logic.*;
 import mindustry.logic.LExecutor.*;
 import mindustry.type.*;
@@ -185,7 +186,7 @@ public class TTLInstructions{
         }
     }
     
-    /* public static class PlaySoundI implements LInstruction{
+    public static class PlaySoundI implements LInstruction{
         public int usePos, x, y, volume, pitch, sound;
         
         public PlaySoundI(){
@@ -202,7 +203,7 @@ public class TTLInstructions{
         
         @Override
         public void run(LExecutor exec){
-            if(exec.obj(sound) instanceof Sound sfx){
+            if(Sounds.getSound(exec.numi(sound)) instanceof Sound sfx){
                 if(exec.bool(usePos)){
                     sfx.at(World.unconv(exec.numf(x)), World.unconv(exec.numf(y)), exec.numf(pitch), exec.numf(volume));
                 }else{
@@ -210,7 +211,7 @@ public class TTLInstructions{
                 }
             }
         }
-    } */
+    }
     
     public static class AddPuddleI implements LInstruction{
         public int x, y, liquid, amount;

@@ -344,8 +344,8 @@ public class TTLStatements{
         }
     }
     
-    /* public static class PlaySoundStatement extends LStatement{
-        public String usePos = "true", x = "0", y = "0", volume = "1", pitch = "1", sound = "@sfxpew";
+    public static class PlaySoundStatement extends LStatement{
+        public String usePos = "true", x = "@thisx", y = "@thisy", volume = "1", pitch = "1", sound = "@sfxpew";
         
         public PlaySoundStatement(){
         }
@@ -403,7 +403,7 @@ public class TTLStatements{
                 .append(" ")
                 .append(sound);
         }
-    } */
+    }
     
     public static class AddPuddleStatement extends LStatement{
         public String x = "10", y = "10", liquid = "@slag", amount = "5";
