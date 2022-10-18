@@ -203,7 +203,7 @@ public class TTLInstructions{
         
         @Override
         public void run(LExecutor exec){
-            if(Sounds.getSound(exec.numi(sound)) instanceof Sound sfx){
+            if(((Object)Sounds.getSound(exec.numi(sound))) instanceof Sound sfx){
                 if(exec.bool(usePos)){
                     sfx.at(World.unconv(exec.numf(x)), World.unconv(exec.numf(y)), exec.numf(pitch), exec.numf(volume));
                 }else{
