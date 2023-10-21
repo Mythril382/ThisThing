@@ -2,10 +2,10 @@ package thing.logic;
 
 import arc.audio.*;
 import arc.files.*;
-import arc.graphics.*;
 import arc.struct.*;
 import arc.util.*;
 import mindustry.gen.*;
+import mindustry.graphics.*;
 import mindustry.logic.*;
 
 import java.lang.reflect.*;
