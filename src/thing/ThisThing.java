@@ -2,12 +2,9 @@ package thing;
 
 import arc.*;
 import arc.graphics.g2d.*;
-// import arc.struct.*;
 import arc.util.*;
-// import mindustry.ai.*;
 import mindustry.game.EventType.*;
 import mindustry.mod.*;
-// import thing.ai.*;
 import thing.logic.*;
 
 import static arc.Core.*;
@@ -33,13 +30,5 @@ public class ThisThing extends Mod{
     @Override
     public void loadContent(){
         TTLogic.load();
-        
-        /* broken atm, PatrolAI stays inaccessible
-        content.units().each(unit -> {
-            Seq<UnitCommand> cmds = Seq.with(unit.commands);
-            cmds.add(UCommands.patrolCommand);
-            unit.commands = cmds.toArray(UnitCommand.class);
-        });
-        */
     }
 }
