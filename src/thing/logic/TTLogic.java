@@ -2,6 +2,7 @@ package thing.logic;
 
 import arc.audio.*;
 import arc.files.*;
+import arc.graphics.*;
 import arc.struct.*;
 import arc.util.*;
 import mindustry.gen.*;
@@ -27,7 +28,7 @@ public class TTLogic{
                 Sound sound = Sounds.getSound(i);
                 Fi file = (Fi)Reflect.get(sound, "file");
                 String name = file.nameWithoutExtension();
-                logicVars.put("@sfx" + name, i);
+                logicVars.put("$" + name, i);
             }
         }
     }
