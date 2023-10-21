@@ -2,11 +2,9 @@ package thing.logic;
 
 import arc.audio.*;
 import arc.files.*;
-import arc.graphics.*;
 import arc.struct.*;
 import arc.util.*;
 import mindustry.gen.*;
-import mindustry.graphics.*;
 import mindustry.logic.*;
 
 import java.lang.reflect.*;
@@ -32,30 +30,5 @@ public class TTLogic{
                 logicVars.put("@sfx" + name, i);
             }
         }
-        
-        // im not typing in every preset color manually
-        try{
-            Field[] fieldsArr = Color.class.getFields();
-            Seq<Field> fields = new Seq<>(fieldsArr);
-            fields = fields.select(f -> Color.class.isAssignableFrom(f.getType()));
-            fields.each(f -> {
-                try{
-                    Color col = (Color)f.get(Color.class);
-                    logicVars.put("@col" + f.getName(), Color.toDoubleBits(col.r, col.g, col.b, col.a));
-                }catch(Throwable ignored2){}
-            });
-        }catch(Throwable ignored){}
-        
-        try{
-            Field[] fieldsArr = Pal.class.getFields();
-            Seq<Field> fields = new Seq<>(fieldsArr);
-            fields = fields.select(f -> Color.class.isAssignableFrom(f.getType()));
-            fields.each(f -> {
-                try{
-                    Color col = (Color)f.get(Pal.class);
-                    logicVars.put("@pal" + f.getName(), Color.toDoubleBits(col.r, col.g, col.b, col.a));
-                }catch(Throwable ignored2){}
-            });
-        }catch(Throwable ignored){}
     }
 }
