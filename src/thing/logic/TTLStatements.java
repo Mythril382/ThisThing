@@ -345,7 +345,7 @@ public class TTLStatements{
     }
     
     public static class PlaySoundStatement extends LStatement{
-        public String usePos = "true", x = "@thisx", y = "@thisy", volume = "1", pitch = "1", sound = "@sfxpew";
+        public String usePos = "true", x = "@thisx", y = "@thisy", volume = "1", pitch = "1", sound = "$pew";
         
         public PlaySoundStatement(){
         }
