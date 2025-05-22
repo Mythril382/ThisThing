@@ -17,10 +17,10 @@ subtitle: "Is a thing."
 description: "Adds a few logic instructions. No other content for now."
 
 #the mod version
-version: 1.6.1
+version: 1.7.0
 
 #the minimum game build required to run this mod
-minGameVersion: 146
+minGameVersion: 149
 
 #this is a java mod
 java: true
