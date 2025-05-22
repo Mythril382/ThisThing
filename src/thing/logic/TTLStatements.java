@@ -344,67 +344,6 @@ public class TTLStatements{
         }
     }
     
-    public static class PlaySoundStatement extends LStatement{
-        public String usePos = "true", x = "@thisx", y = "@thisy", volume = "1", pitch = "1", sound = "$pew";
-        
-        public PlaySoundStatement(){
-        }
-        
-        public PlaySoundStatement(String usePos, String x, String y, String volume, String pitch, String sound){
-            this.usePos = usePos;
-            this.x = x;
-            this.y = y;
-            this.volume = volume;
-            this.pitch = pitch;
-            this.sound = sound;
-        }
-        
-        @Override
-        public void build(Table table){
-            fields(table, "usePos", usePos, str -> usePos = str);
-            row(table);
-            fields(table, "x", x, str -> x = str);
-            fields(table, "y", y, str -> y = str);
-            row(table);
-            fields(table, "volume", volume, str -> volume = str);
-            fields(table, "pitch", pitch, str -> pitch = str);
-            row(table);
-            fields(table, "sound", sound, str -> sound = str);
-        }
-        
-        @Override
-        public boolean privileged(){
-            return true;
-        }
-        
-        @Override
-        public LInstruction build(LAssembler b){
-            return new PlaySoundI(b.var(usePos), b.var(x), b.var(y), b.var(volume), b.var(pitch), b.var(sound));
-        }
-        
-        @Override
-        public LCategory category(){
-            return LCategory.world;
-        }
-        
-        @Override
-        public void write(StringBuilder builder){
-            builder
-                .append("playsound ")
-                .append(usePos)
-                .append(" ")
-                .append(x)
-                .append(" ")
-                .append(y)
-                .append(" ")
-                .append(volume)
-                .append(" ")
-                .append(pitch)
-                .append(" ")
-                .append(sound);
-        }
-    }
-    
     public static class AddPuddleStatement extends LStatement{
         public String x = "10", y = "10", liquid = "@slag", amount = "5";
         
@@ -542,7 +481,6 @@ public class TTLStatements{
         // World
         
         registerStatement("shake", args -> new ShakeStatement(args[1], args[2], args[3]), ShakeStatement::new);
-        registerStatement("playsound", args -> new PlaySoundStatement(args[1], args[2], args[3], args[4], args[5], args[6]), PlaySoundStatement::new);
         registerStatement("addpuddle", args -> new AddPuddleStatement(args[1], args[2], args[3], args[4]), AddPuddleStatement::new);
         registerStatement("addfire", args -> new AddFireStatement(args[1], args[2]), AddFireStatement::new);
         
