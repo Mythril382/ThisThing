@@ -84,8 +84,9 @@ public class TTLStatements{
             
             row(table);
             
-            fields(table, "pressed", pressed, str -> pressed = str);
-            fields(table, "axis", axis, str -> axis = str);
+            fieldst(table, "pressed", pressed, str -> pressed = str);
+            row(table);
+            fieldst(table, "axis", axis, str -> axis = str);
         }
         
         @Override
