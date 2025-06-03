@@ -36,6 +36,31 @@ public class TTLInstructions{
         }
     }
     
+    public static class KeybindSensorI implements LInstruction{
+        public String bind;
+        public LVar result;
+        
+        public KeybindSensorI(){
+        }
+        
+        public KeybindSensorI(String bind, LVar result){
+            this.bind = bind;
+            this.result = result;
+        }
+        
+        @Override
+        public void run(LExecutor exec){
+            @Nullable KeyBind found = KeyBind.all.find(b -> b.name.equals(bind));
+            if(found != null){
+                if(found.defaultValue instanceof Axis){
+                    result.setnum(input.axis(found));
+                }else{
+                    result.setbool(input.keyDown(found));
+                }
+            }
+        }
+    }
+    
     // Operation
     
     public static class RandI implements LInstruction{
@@ -163,33 +188,6 @@ public class TTLInstructions{
         
         public static double pack(Color col){
             return Color.toDoubleBits(col.r, col.g, col.b, col.a);
-        }
-    }
-    
-    // Unit
-    
-    public static class KeybindSensorI implements LInstruction{
-        public String bind;
-        public LVar result;
-        
-        public KeybindSensorI(){
-        }
-        
-        public KeybindSensorI(String bind, LVar result){
-            this.bind = bind;
-            this.result = result;
-        }
-        
-        @Override
-        public void run(LExecutor exec){
-            @Nullable KeyBind found = KeyBind.all.find(b -> b.name.equals(bind));
-            if(found != null){
-                if(found.defaultValue instanceof Axis){
-                    result.setnum(input.axis(found));
-                }else{
-                    result.setbool(input.keyDown(found));
-                }
-            }
         }
     }
     

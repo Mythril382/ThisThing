@@ -4,6 +4,7 @@ import arc.func.*;
 import arc.input.*;
 import arc.input.KeyBind.*;
 import arc.scene.ui.layout.*;
+import arc.util.*;
 import mindustry.gen.*;
 import mindustry.logic.*;
 import mindustry.logic.LExecutor.*;
@@ -47,6 +48,63 @@ public class TTLStatements{
             builder
                 .append("readmessage ")
                 .append(building)
+                .append(" ")
+                .append(result);
+        }
+    }
+    
+    public static class KeybindSensorStatement extends LStatement{
+        public String bind = "respawn", result = "result";
+        
+        private static @Nullable String[] bindNames, axisBindNames;
+        
+        public KeybindSensorStatement(){
+        }
+        
+        public KeybindSensorStatement(String bind, String result){
+            this.bind = bind;
+            this.result = result;
+        }
+        
+        @Override
+        public void build(Table table){
+            table.clearChildren();
+            
+            table.add("keybind ");
+            
+            if(bindNames == null){
+                bindNames = KeyBind.all.map(b -> b.name).toArray(String.class);
+                axisBindNames = KeyBind.all.select(b -> b.defaultValue instanceof Axis).map(b -> b.name).toArray(String.class);
+            }
+            
+            table.button(b -> {
+                b.label(() -> bind).grow().wrap().labelAlign(Align.center).center();
+                b.clicked(() -> showSelect(b, bindNames, bind, o -> {
+                    bind = o;
+                    build(table);
+                }, 2, c -> c.size(140f, 40f)));
+            }, Styles.logict, () -> {}).size(140f, 40f).pad(4f).color(table.color);
+            
+            row(table);
+            
+            fields(table, axisBindNames.contains(bind) ? "axis" : "pressed", result, str -> result = str);
+        }
+        
+        @Override
+        public LInstruction build(LAssembler b){
+            return new KeybindSensorI(bind, b.var(result));
+        }
+        
+        @Override
+        public LCategory category(){
+            return LCategory.io;
+        }
+        
+        @Override
+        public void write(StringBuilder builder){
+            builder
+                .append("keybindsensor ")
+                .append(bind)
                 .append(" ")
                 .append(result);
         }
@@ -297,64 +355,6 @@ public class TTLStatements{
         }
     }
     
-    // Unit
-    public static class KeybindSensorStatement extends LStatement{
-        public String bind = "respawn", result = "result";
-        
-        private static @Nullable String[] bindNames, axisBindNames;
-        
-        public KeybindSensorStatement(){
-        }
-        
-        public KeybindSensorStatement(String bind, String result){
-            this.bind = bind;
-            this.result = result;
-        }
-        
-        @Override
-        public void build(Table table){
-            table.clearChildren();
-            
-            table.add("keybind ");
-            
-            if(bindNames == null){
-                bindNames = KeyBind.all.map(b -> b.name).toArray(String.class);
-                axisBindNames = KeyBind.all.select(b -> b.defaultValue instanceof Axis).map(b -> b.name).toArray(String.class);
-            }
-            
-            table.button(b -> {
-                b.label(() -> bind).grow().wrap().labelAlign(Align.center).center();
-                b.clicked(() -> showSelect(b, bindNames, bind, o -> {
-                    bind = o;
-                    build(table);
-                }, 2, c -> c.size(140f, 40f)));
-            }, Styles.logict, () -> {}).size(140f, 40f).pad(4f).color(table.color);
-            
-            row(table);
-            
-            fields(table, axisBindNames.contains(bind) ? "axis" : "pressed", result, str -> result = str);
-        }
-        
-        @Override
-        public LInstruction build(LAssembler b){
-            return new KeybindSensorI(bind, b.var(result));
-        }
-        
-        @Override
-        public LCategory category(){
-            return LCategory.unit;
-        }
-        
-        @Override
-        public void write(StringBuilder builder){
-            builder
-                .append("keybindsensor ")
-                .append(bind)
-                .append(" ")
-                .append(result);
-        }
-    }
-    
     // World
     
     public static class ShakeStatement extends LStatement{
@@ -531,16 +531,13 @@ public class TTLStatements{
         // IO
         
         registerStatement("readmessage", args -> new ReadMessageStatement(args[1], args[2]), ReadMessageStatement::new);
+        registerStatement("keybindsensor", args -> new KeybindSensorStatement(args[1], args[2]), KeybindSensorStatement::new);
         
         // Operation
         
         registerStatement("rand", args -> new RandStatement(args[1], args[2], args[3], args[4]), RandStatement::new);
         registerStatement("stringop", args -> new StringOpStatement(args[1], args[2], args[3], args[4]), StringOpStatement::new);
         registerStatement("colorop", args -> new ColorOpStatement(args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8]), ColorOpStatement::new);
-        
-        // Unit
-        
-        registerStatement("keybindsensor", args -> new KeybindSensorStatement(args[1], args[2]));
         
         // World
         
