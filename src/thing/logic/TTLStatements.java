@@ -4,6 +4,7 @@ import arc.func.*;
 import arc.input.*;
 import arc.input.KeyBind.*;
 import arc.scene.ui.layout.*;
+import arc.struct.*;
 import arc.util.*;
 import mindustry.gen.*;
 import mindustry.logic.*;
@@ -56,7 +57,8 @@ public class TTLStatements{
     public static class KeybindSensorStatement extends LStatement{
         public String bind = "respawn", result = "result";
         
-        private static @Nullable String[] bindNames, axisBindNames;
+        private static @Nullable String[] bindNames
+        private static ObjectSet<String> axisBindNames = ObjectSet.with();
         
         public KeybindSensorStatement(){
         }
@@ -74,7 +76,7 @@ public class TTLStatements{
             
             if(bindNames == null){
                 bindNames = KeyBind.all.map(b -> b.name).toArray(String.class);
-                axisBindNames = KeyBind.all.select(b -> b.defaultValue instanceof Axis).map(b -> b.name).toArray(String.class);
+                axisBindNames = ObjectSet.with(KeyBind.all.select(b -> b.defaultValue instanceof Axis).map(b -> b.name));
             }
             
             table.button(b -> {
