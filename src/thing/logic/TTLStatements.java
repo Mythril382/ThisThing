@@ -2,9 +2,7 @@ package thing.logic;
 
 import arc.func.*;
 import arc.input.*;
-import arc.input.KeyBind.*;
 import arc.scene.ui.layout.*;
-import arc.struct.*;
 import arc.util.*;
 import mindustry.gen.*;
 import mindustry.logic.*;
@@ -55,28 +53,25 @@ public class TTLStatements{
     }
     
     public static class KeybindSensorStatement extends LStatement{
-        public String bind = "respawn", result = "result";
+        public String bind = "respawn", pressed = "pressed", axis = "axis";
         
         private static @Nullable String[] bindNames;
-        private static ObjectSet<String> axisBindNames = ObjectSet.with();
         
         public KeybindSensorStatement(){
         }
         
-        public KeybindSensorStatement(String bind, String result){
+        public KeybindSensorStatement(String bind, String pressed, String axis){
             this.bind = bind;
-            this.result = result;
+            this.pressed = pressed;
+            this.axis = axis;
         }
         
         @Override
         public void build(Table table){
             table.clearChildren();
             
-            table.add("keybind ");
-            
             if(bindNames == null){
                 bindNames = KeyBind.all.map(b -> b.name).toArray(String.class);
-                axisBindNames = ObjectSet.with(KeyBind.all.select(b -> b.defaultValue instanceof Axis).map(b -> b.name));
             }
             
             table.button(b -> {
@@ -84,17 +79,18 @@ public class TTLStatements{
                 b.clicked(() -> showSelect(b, bindNames, bind, o -> {
                     bind = o;
                     build(table);
-                }, 2, c -> c.size(140f, 40f)));
-            }, Styles.logict, () -> {}).size(140f, 40f).pad(4f).color(table.color);
+                }, 2, c -> c.size(300f, 40f)));
+            }, Styles.logict, () -> {}).size(300f, 40f).pad(4f).color(table.color);
             
             row(table);
             
-            fields(table, axisBindNames.contains(bind) ? "axis" : "pressed", result, str -> result = str);
+            fields(table, "pressed", pressed, str -> pressed = str);
+            fields(table, "axis", axis, str -> axis = str);
         }
         
         @Override
         public LInstruction build(LAssembler b){
-            return new KeybindSensorI(bind, b.var(result));
+            return new KeybindSensorI(bind, b.var(pressed), b.var(axis));
         }
         
         @Override
@@ -108,7 +104,9 @@ public class TTLStatements{
                 .append("keybindsensor ")
                 .append(bind)
                 .append(" ")
-                .append(result);
+                .append(pressed)
+                .append(" ")
+                .append(axis);
         }
     }
     
@@ -533,7 +531,7 @@ public class TTLStatements{
         // IO
         
         registerStatement("readmessage", args -> new ReadMessageStatement(args[1], args[2]), ReadMessageStatement::new);
-        registerStatement("keybindsensor", args -> new KeybindSensorStatement(args[1], args[2]), KeybindSensorStatement::new);
+        registerStatement("keybindsensor", args -> new KeybindSensorStatement(args[1], args[2], args[3]), KeybindSensorStatement::new);
         
         // Operation
         

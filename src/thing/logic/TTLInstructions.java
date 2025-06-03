@@ -38,24 +38,30 @@ public class TTLInstructions{
     
     public static class KeybindSensorI implements LInstruction{
         public String bind;
-        public LVar result;
+        public LVar pressed, axis;
         
         public KeybindSensorI(){
         }
         
-        public KeybindSensorI(String bind, LVar result){
+        public KeybindSensorI(String bind, LVar pressed, LVar axis){
             this.bind = bind;
-            this.result = result;
+            this.pressed = pressed;
+            this.axis = axis;
         }
         
         @Override
         public void run(LExecutor exec){
-            @Nullable KeyBind found = KeyBind.all.find(b -> b.name.equals(bind));
-            if(found != null){
-                if(found.defaultValue instanceof Axis){
-                    result.setnum(input.axis(found));
+            @Nullable KeyBind bind = KeyBind.all.find(b -> b.name.equals(this.bind));
+            if(bind != null){
+                pressed.setbool(input.keyDown(bind));
+                
+                Axis value = bind.value;
+                if(value.key != null){
+                    axis.setnum(input.axis(value.key));
+                }else if(value.min != null && value.max != null){
+                    axis.setnum(input.axis(bind));
                 }else{
-                    result.setbool(input.keyDown(found));
+                    axis.setnum(0);
                 }
             }
         }
