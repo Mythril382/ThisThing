@@ -57,7 +57,7 @@ public class TTLStatements{
     public static class KeybindSensorStatement extends LStatement{
         public String bind = "respawn", result = "result";
         
-        private static @Nullable String[] bindNames
+        private static @Nullable String[] bindNames;
         private static ObjectSet<String> axisBindNames = ObjectSet.with();
         
         public KeybindSensorStatement(){
