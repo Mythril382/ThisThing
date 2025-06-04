@@ -36,37 +36,6 @@ public class TTLInstructions{
         }
     }
     
-    public static class KeybindSensorI implements LInstruction{
-        public String bind;
-        public LVar pressed, axis;
-        
-        public KeybindSensorI(){
-        }
-        
-        public KeybindSensorI(String bind, LVar pressed, LVar axis){
-            this.bind = bind;
-            this.pressed = pressed;
-            this.axis = axis;
-        }
-        
-        @Override
-        public void run(LExecutor exec){
-            @Nullable KeyBind bind = KeyBind.all.find(b -> b.name.equals(this.bind));
-            if(bind != null){
-                pressed.setbool(input.keyDown(bind));
-                
-                Axis value = bind.value;
-                if(value.key != null){
-                    axis.setnum(input.axis(value.key));
-                }else if(value.min != null && value.max != null){
-                    axis.setnum(input.axis(bind));
-                }else{
-                    axis.setnum(0);
-                }
-            }
-        }
-    }
-    
     // Operation
     
     public static class RandI implements LInstruction{
@@ -198,6 +167,37 @@ public class TTLInstructions{
     }
     
     // World
+
+    public static class KeybindSensorI implements LInstruction{
+        public String bind;
+        public LVar pressed, axis;
+        
+        public KeybindSensorI(){
+        }
+        
+        public KeybindSensorI(String bind, LVar pressed, LVar axis){
+            this.bind = bind;
+            this.pressed = pressed;
+            this.axis = axis;
+        }
+        
+        @Override
+        public void run(LExecutor exec){
+            @Nullable KeyBind bind = KeyBind.all.find(b -> b.name.equals(this.bind));
+            if(bind != null){
+                pressed.setbool(input.keyDown(bind));
+                
+                Axis value = bind.value;
+                if(value.key != null){
+                    axis.setnum(input.axis(value.key));
+                }else if(value.min != null && value.max != null){
+                    axis.setnum(input.axis(bind));
+                }else{
+                    axis.setnum(0);
+                }
+            }
+        }
+    }
     
     public static class ShakeI implements LInstruction{
         public LVar intensity, x, y;
